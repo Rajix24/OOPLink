@@ -1,7 +1,15 @@
 <x-layout>
-    @if (isset($data))
-        <h1> data is here</h1>
+    @if ($data["status"] == false)
+        <h1>some thing went wrong</h1>
     @endif
-    <h1>data is not here</h1>
-    <p></p>
+    @foreach ($data['data'] as $tag)
+    <div class="d-flex gap-3 m-4">
+        <p>{{ $tag->tag }} </p>
+        <form action="{{ route('tag.destroy', $tag) }}" method="post">
+            @csrf
+            @method('delete')
+            <button type="submit" class="btn btn-danger">del</button>
+        </form>
+        </div>
+    @endforeach
 </x-layout>

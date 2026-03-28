@@ -9,8 +9,9 @@
         </ul>
     </div>
 @endif
-    <form action="{{ route('tag.store') }}" method="POST">
+    <form action="{{ route('tag.update', $tag) }}" method="POST">
         @CSRF
+        @method('PUT');
         <div class="mb-3">
             <label class="form-label">Enter Tag</label>
             <input type="text" id="tagInput" name="tag" class="form-control"

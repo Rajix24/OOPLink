@@ -39,8 +39,7 @@ class TagController extends Controller
             "created_at" => NOW(),
             "updated_at" => NOW(),
         ]);
-        dd($tag);
-        return 0;
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -54,9 +53,12 @@ class TagController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tag $tag)
+    public function edit($id)
     {
-        //
+        $tag = Tag::find($id)->first();
+        $condition = true;
+
+        return view('tag.edit', compact('tag','condition'));
     }
 
     /**
@@ -64,7 +66,12 @@ class TagController extends Controller
      */
     public function update(TagRequest $request, Tag $tag)
     {
-        //
+        // dd($tag);
+        $tag->update([
+            'tag' => $request->tag,
+            'updated_at' => now(),
+        ]);
+        return redirect()->route('tag.index');
     }
 
     /**
@@ -72,6 +79,7 @@ class TagController extends Controller
      */
     public function destroy(Tag $tag)
     {
-        //
+        $tag->delete();
+        return redirect()->route('tag.index');
     }
 }
