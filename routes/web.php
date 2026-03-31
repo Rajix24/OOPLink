@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\TagController;
 use Illuminate\Http\RedirectResponse;
 // use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -28,3 +29,4 @@ Route::post('logout', function(): RedirectResponse{
 
 Route::view('register', 'auth.register')->name('register');
 Route::post('register', RegisterController::class)->name('register.store');
+Route::resource('tag', TagController::class);
