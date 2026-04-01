@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
@@ -32,3 +33,4 @@ Route::view('register', 'auth.register')->name('register');
 Route::post('register', RegisterController::class)->name('register.store');
 Route::resource('tag', TagController::class);
 Route::resource('categories', CategoryController::class);
+Route::resource('article', ArticleController::class);
