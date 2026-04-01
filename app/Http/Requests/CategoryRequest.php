@@ -11,7 +11,7 @@ class CategoryRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,14 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'category' => 'string|required',
+        ];
+    }
+    public function messages(): array
+    {
+        return [
+            'category.required' => 'The tag field is required.',
+            'category.string' => 'The tag must be a valid string.',
         ];
     }
 }

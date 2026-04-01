@@ -12,4 +12,4 @@
         </form>
         </div>
     @endforeach
-</x-layout>
+</x-layout> 
