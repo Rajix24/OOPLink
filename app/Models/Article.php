@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     protected $fillable = [
-        'name', 
-        'email', 
-        'bio', 
-        'tele', 
-        'photo', 
+        'title',
+        'introduction',
+        'body',
+        'conclusion',
+        'use_id',
+        'tag_id',
+        'created_at',
+        'updated_at'
     ];
 
 
