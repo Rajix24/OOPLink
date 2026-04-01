@@ -11,8 +11,9 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        
+    {   
+        $articles = Article::all();
+        return view("article.show", compact('articles'));
     }
 
     /**

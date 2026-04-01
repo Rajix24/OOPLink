@@ -10,11 +10,10 @@
             width: 100%;
             height: 100vh;
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-wrap: wrap;
         }
         main{
-            width: 600px;
+            width: 100%;
             height: auto;
         }
     </style>
