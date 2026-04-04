@@ -34,3 +34,7 @@ Route::post('register', RegisterController::class)->name('register.store');
 Route::resource('tag', TagController::class);
 Route::resource('categories', CategoryController::class);
 Route::resource('article', ArticleController::class);
+Route::get("admin", function (){
+    //data idf you must  send it ;
+    return view('admin.dashbord');
+});

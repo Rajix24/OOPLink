@@ -15,6 +15,8 @@
                     <p>
                         {{ $article->conclusion }}
                     </p>
+                    <button>{{  $article->tag->tag }}</button>
+                    <button>{{  $article->user->name }}</button>
                     <div class="d-flex justify-content-between">
                         <button class="btn btn-primary btn-sm">Like</button>
                         <button class="btn btn-outline-secondary btn-sm">Comment</button>
