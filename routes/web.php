@@ -41,7 +41,5 @@ Route::get("admin", function (){
     return view('admin.dashbord');
 });
 Route::get('test', function (){
-    $tags = Tag::all();
-    $categories = Category::all();
-    return view('article.create', compact('tags', 'categories'));
+
 });

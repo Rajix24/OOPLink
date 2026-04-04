@@ -18,8 +18,8 @@ class Article extends Model
     ];
 
 
-    public function image(){
-        return $this->belongsToMany(Image::class);
+    public function images(){
+        return $this->hasMany(Image::class);
     }
     public function category(){
         return $this->belongsToMany(Category::class);
