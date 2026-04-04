@@ -27,7 +27,7 @@ class Article extends Model
     public function tag(){
         return $this->belongsTo(Tag::class);
     }
-    public function links(){
+    public function link(){
         return $this->hasMany(Link::class);
     }
     public function user(){
