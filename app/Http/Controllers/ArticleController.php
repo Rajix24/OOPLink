@@ -10,6 +10,7 @@ use App\Models\Tag;
 use Auth;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Http\Request;
+use Storage;
 
 class ArticleController extends Controller
 {
@@ -80,18 +81,47 @@ class ArticleController extends Controller
     public function edit(Article $article)
     {
         $categories = Category::all();
-        $tags =  Tag::all();
-
-        // dd($article);
+        $tags = Tag::all();
         return view('article.edit', compact('article', "tags", "categories"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(ArticleRequest $request, Article $article)
+    public function update(ArticleRequest $request, $id)
     {
-        dd($article);
+        $article = Article::with('tag', 'category', 'user', 'link', 'images')->find($id);
+        $article->update([
+            'user_id' => 1,
+            "title" => $request->title,
+            'introduction' => $request->introduction,
+            'body' => $request->introduction,
+            'conclusion' => $request->conclusion,
+            'tag_id' => $request->tag_id,
+        ]);
+        $article->link()->delete();
+        foreach ($article->link as $link) {
+            $article->link()->create([
+                'name' => $link
+            ]);
+        }
+        if ($article->images) {
+            foreach ($article->images as $image) {
+                Storage::disk('public')->delete($image->image);
+                $image->delete();
+            }
+        }
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $path = $file->store('images', 'public');
+                Image::create([
+                    'article_id' => $article->id,
+                    'image' => $path
+                ]);
+            }
+        }
+        $article->category()->sync($request->category_id);
+        return redirect()->route('article.index');
     }
 
     /**

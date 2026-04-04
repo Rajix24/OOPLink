@@ -1,7 +1,8 @@
 <x-articles>
     <div class="container">
-        <form action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('article.update',$article->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
+            @method('PUT')
             <!-- Title -->
             <div class="mb-3">
                 <label class="form-label">Title</label>
