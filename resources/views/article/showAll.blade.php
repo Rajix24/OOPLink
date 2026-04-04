@@ -1,5 +1,4 @@
 er<x-articles>
-    @foreach ($articles as $article)
         <div class="col-md-4">
             <div class="card shadow-sm m-4">
                 @if ($article->images != null)
@@ -11,7 +10,7 @@ er<x-articles>
                     <h3>Images are not here</h3>
                 @endif
                 <div class="card-body">
-                    <a href="{{ route("article.show", $article) }}" class="card-title">title: {{ $article->title }}</a>
+                    <h5 class="card-title">title: {{ $article->title }}</h5>
                     <p class="card-text"> intro :
                         {{ $article->introduction }}
                     </p>
@@ -46,7 +45,6 @@ er<x-articles>
                 </div>
             </div>
         </div>
-    @endforeach
 
-<a href="{{ route('article.create') }}" class="btn btn-primary">cerate article</a>
+    <a href="{{ route('article.create') }}">cerate article</a>
 </x-articles>

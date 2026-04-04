@@ -8,6 +8,7 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Tag;
 use Auth;
+use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Http\Request;
 
 class ArticleController extends Controller
@@ -18,7 +19,6 @@ class ArticleController extends Controller
     public function index()
     {
         $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
-        // $articles = Article::with('tag', 'category', 'user', 'link', 'category', 'comments', 'likes', 'image')->get();
         return view("article.show", compact('articles'));
     }
 
@@ -66,7 +66,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('article.showAll', compact('article'));
     }
 
     /**
@@ -74,13 +74,17 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        $categories = Category::all();
+        $tags =  Tag::all();
+
+        // dd($article);
+        return view('article.edit', compact('article', "tags", "categories"));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+    public function update(ArticleRequest $request, Article $article)
     {
         //
     }
@@ -90,6 +94,8 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        $article->category()->detach();
+        $article->delete();
+        return redirect()->route('article.index');
     }
 }
