@@ -11,7 +11,7 @@ class Article extends Model
         'introduction',
         'body',
         'conclusion',
-        'use_id',
+        'user_id',
         'tag_id',
         'created_at',
         'updated_at'

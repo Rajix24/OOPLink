@@ -5,6 +5,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
 // use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -37,4 +39,9 @@ Route::resource('article', ArticleController::class);
 Route::get("admin", function (){
     //data idf you must  send it ;
     return view('admin.dashbord');
+});
+Route::get('test', function (){
+    $tags = Tag::all();
+    $categories = Category::all();
+    return view('article.create', compact('tags', 'categories'));
 });
