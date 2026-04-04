@@ -11,8 +11,14 @@ class ArticleController extends Controller
      * Display a listing of the resource.
      */
     public function index()
-    {
-        
+    {   
+        $articles = Article::with('tag', 'category', 'user', 'category')->get();
+        // $articles = Article::with('tag', 'category', 'user', 'link', 'category', 'comments', 'likes', 'image')->get();
+        // return view("article.show", compact('articles'));
+        return response()->json([
+            'message' => true,
+            'data' => "hi form your fill rouge"
+        ]);
     }
 
     /**
