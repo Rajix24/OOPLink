@@ -35,7 +35,8 @@
             <!-- Social Media Link -->
             <div class="mb-3">
                 <label class="form-label">Social Media Link</label>
-                <input type="url" name="link" class="form-control" placeholder="https://example.com">
+                <span>GitHub</span><input type="url" name="link[]" class="form-control" placeholder="https://example.com">
+                <span>Demo:</span><input type="url" name="link[]" class="form-control" placeholder="https://example.com">
             </div>
 
             <!-- Tag / Category -->

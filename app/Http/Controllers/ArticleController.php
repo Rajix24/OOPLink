@@ -38,7 +38,6 @@ class ArticleController extends Controller
     public function store(ArticleRequest $request)
     {
 
-        // change the user_id to Auth::id()
         $article = Article::create([
             'user_id' => 1,
             "title" => $request->title,
@@ -47,6 +46,12 @@ class ArticleController extends Controller
             'conclusion' => $request->conclusion,
             'tag_id' => $request->tag_id,
         ]);
+        // dd($request->link);
+        foreach ($request->link as $link) {
+            $article->link()->create([
+                'name' => $link,
+            ]);
+        }
         if ($request->hasFile('image')) {
             foreach ($request->file('image') as $file) {
                 $path = $file->store('images', 'public');
@@ -86,7 +91,7 @@ class ArticleController extends Controller
      */
     public function update(ArticleRequest $request, Article $article)
     {
-        //
+        dd($article);
     }
 
     /**
