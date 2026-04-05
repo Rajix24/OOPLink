@@ -107,7 +107,7 @@ class ArticleController extends Controller
         }
         if ($article->images) {
             foreach ($article->images as $image) {
-                Storage::disk('public')->delete($image->image);
+                Storage::disk('public')->delete($image->image ?? '');
                 $image->delete();
             }
         }
@@ -129,6 +129,13 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
+        if ($article->images) {
+            foreach ($article->images as $image) {
+                Storage::disk('public')->delete($image->image ?? '');
+                $image->delete();
+            }
+        }
+        $article->link()->delete();
         $article->category()->detach();
         $article->delete();
         return redirect()->route('article.index');
