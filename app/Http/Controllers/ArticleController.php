@@ -7,9 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use App\Models\Image;
 use App\Models\Tag;
-use Auth;
-use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage as FacadesStorage;
 use Storage;
 
 class ArticleController extends Controller
@@ -107,7 +105,7 @@ class ArticleController extends Controller
         }
         if ($article->images) {
             foreach ($article->images as $image) {
-                Storage::disk('public')->delete($image->image ?? '');
+                FacadesStorage::disk('public')->delete($image->image ?? '');
                 $image->delete();
             }
         }
@@ -131,7 +129,7 @@ class ArticleController extends Controller
     {
         if ($article->images) {
             foreach ($article->images as $image) {
-                Storage::disk('public')->delete($image->image ?? '');
+                FacadesStorage::disk('public')->delete($image->image ?? '');
                 $image->delete();
             }
         }
