@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Image;
+use App\Models\Category;
+use App\Models\Link;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
