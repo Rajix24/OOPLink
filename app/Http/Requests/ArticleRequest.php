@@ -22,12 +22,16 @@ class ArticleRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => "required|string",
+            'title' => "required|string",   
             'introduction' => ' required|string',
             'body' => 'required|string',
             "conclusion" => 'required|string',
-            "categories" => "required|array|min:1",
+            "category_id" => "required|array|min:1",
             'categories.*' => 'integer|exists:categories,id',
+            'tag_id' =>"required",
+            'tag.*' => 'integer|exits:tags,id',
+            "link" => 'required',
+            'image' => 'required'
         ];
     }
     public function messages(): array

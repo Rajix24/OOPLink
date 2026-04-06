@@ -3,15 +3,19 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Link extends Model
+class Comment extends Model
 {
     protected $fillable = [
-        'name',
-        'article_id'
+        "id",
+        'content',
+        'article_id',
+        "user_id",
     ];
 
+    public function user(){
+        return $this->belongsTo(User::class);
+    }
     public function article(){
         return $this->belongsTo(Article::class);
     }

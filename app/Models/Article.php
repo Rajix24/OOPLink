@@ -11,15 +11,15 @@ class Article extends Model
         'introduction',
         'body',
         'conclusion',
-        'use_id',
+        'user_id',
         'tag_id',
         'created_at',
         'updated_at'
     ];
 
 
-    public function image(){
-        return $this->belongsToMany(Image::class);
+    public function images(){
+        return $this->hasMany(Image::class);
     }
     public function category(){
         return $this->belongsToMany(Category::class);
@@ -27,11 +27,14 @@ class Article extends Model
     public function tag(){
         return $this->belongsTo(Tag::class);
     }
-    public function links(){
+    public function link(){
         return $this->hasMany(Link::class);
     }
     public function user(){
         return $this->belongsTo(User::class);
     }
+    public function comments(){
+        return $this->hasMany(Comment::class);
+    } 
 }
 

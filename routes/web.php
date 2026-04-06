@@ -2,12 +2,18 @@
 
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
+use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 // use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
     return view('welcome');
@@ -38,3 +44,5 @@ Route::get("admin", function (){
     //data idf you must  send it ;
     return view('admin.dashbord');
 });
+Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
+Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');

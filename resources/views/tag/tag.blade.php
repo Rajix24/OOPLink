@@ -12,4 +12,5 @@
         </form>
         </div>
     @endforeach
+    <a href="{{ route('tag.create') }}" class="btn btn-primary">Create</a>
 </x-layout> 

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Image extends Model
 {
     protected $fillable = [
-        'link',
+        'article_id',
+        'image',
     ];
     public function article() {
         return $this ->belongsTo(Article::class);
