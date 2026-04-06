@@ -6,10 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-        protected $fillable = [
+    protected $fillable = [
         "id",
         'content',
-        'post_id',
+        'article_id',
         "user_id",
     ];
 

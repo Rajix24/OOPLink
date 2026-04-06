@@ -46,56 +46,9 @@
                     </form>
                 </div>
             </div>
-            <div id="box"></div>
-            </div>
-            <form id="form-action" class="comment-input">
-                @csrf
-                <input class="comment" id="content" type="text" placeholder="comments....">
-                <input type="hidden" id="article" value="{{ $article->id }}">
-                <button class="btn" type="submit">comment</button>
-            </form>
         </div>
         @endforeach
     </div>
     <a href="{{ route('article.create') }}" class="btn btn-primary">cerate article</a>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-    <script>
-        const token = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
-        axios.defaults.headers.common['X-CSRF-TOKEN'] = token;
-
-        function fetchArticles() {
-            axios.get('/show/{{ $post->id }}').then(respense => {
-                renderArticles(respense.data.data.comments || respense.data.data);
-            });
-        }
-        fetchArticles();
-        document.getElementById('form-action').addEventListener("submit", (e) => {
-            e.preventDefault();
-            const formData = {
-                content: document.getElementById("content").value,
-                post_id: document.getElementById("post_id").value
-            }
-            axios.post("/comment", formData)
-                .then(response => {
-                    console.log("{{ Auth::id() }}")
-                    e.target.reset();
-                    fetchArticles(); 
-                })
-                .catch(error => {
-                    console.error("Error details:", error.response?.data || error.message);
-                });
-        });
-
-        function renderArticles(articles) {
-            let content = "";
-            articles.forEach(article => {
-                content += `
-            <div style="border:1px solid #ddd; padding:10px; margin:10px 0;">
-                <h4>comments: ${article.content}</h4>
-                <p><strong>from:</strong> ${article.user.name || ""}</p>
-            </div>`;
-            });
-            document.getElementById('box').innerHTML = content;
-        }
-    </script>
+ 
 </x-articles>

@@ -9,6 +9,7 @@ use App\Http\Controllers\TagController;
 use App\Models\Category;
 use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 // use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
@@ -43,5 +44,5 @@ Route::get("admin", function (){
     //data idf you must  send it ;
     return view('admin.dashbord');
 });
-Route::get('/comment', [CommentController::class, "ShowComments"]);
-Route::post('/comment', [CommentController::class, "CreateComment"])->middleware("auth:sanctum");
+Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
+Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
