@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Image;
 use App\Models\Category;
 use App\Models\Link;
+use App\Models\Comment;
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model

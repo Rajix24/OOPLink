@@ -6,12 +6,8 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
-use App\Models\Category;
-use App\Models\Tag;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-// use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
@@ -22,27 +18,25 @@ Route::get('login', function(){
     return view('auth.login');
 })->name('login');
 
-Route::post('login', LoginController::class)
-->middleware('throttle:5,1')
-->name('login.attempt');
+Route::post('login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');
 Route::view('dashboard', 'dashboard')->name('dashboard')->middleware('auth');
-Route::post('logout', function(): RedirectResponse{
-    Auth::guard('web')->logout();
-
-    Session::invalidate();
-    Session::regenerateToken();
-
-    return redirect('/');
-})->name('logout');
 
 Route::view('register', 'auth.register')->name('register');
 Route::post('register', RegisterController::class)->name('register.store');
-Route::resource('tag', TagController::class);
-Route::resource('categories', CategoryController::class);
-Route::resource('article', ArticleController::class);
-Route::get("admin", function (){
-    //data idf you must  send it ;
-    return view('admin.dashbord');
+
+Route::post('logout', function(): RedirectResponse{
+    Auth::guard('web')->logout();
+    Session::invalidate();
+    Session::regenerateToken();
+    return redirect('/');
+})->name('logout');
+
+
+
+Route::middleware("auth")->group(function () {
+    Route::resource('tag', TagController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('article', ArticleController::class);
+    Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
+    Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
 });
-Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
-Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
