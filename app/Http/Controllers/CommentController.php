@@ -23,17 +23,10 @@ class CommentController extends Controller
 
     public function CreateComment(Request $request)
     {
-
-        // if (!Auth::check()) {
-        //     return response()->json([
-        //         'status' => false,
-        //         'error' => 'User not recognized. Are you logged in aaaaaauthhhhh?'
-        //     ], 405);
-        // }
         if ($request->input("content") == null) return back();
         Comment::create([
             'content' => $request->input('content'),
-            'user_id' =>    1,//that need AUTH;
+            'user_id' =>    Auth::user()->id,
             'article_id' => $request->input("article_id")
         ]);
         return response()->json([

@@ -16,6 +16,8 @@ class RegisterController extends Controller
             'password' => ['required'],
         ]);
         $userInfo['password'] = bcrypt($userInfo['password']);
+        $userInfo["role_id"] = 2;
+        // dd($userInfo); 
         $user = User::create($userInfo);
 
         Auth::login($user);

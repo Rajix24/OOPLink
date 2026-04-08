@@ -6,6 +6,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Models\Comment;
+
 
 class User extends Authenticatable
 {
@@ -21,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'role_id'
     ];
 
     /**
@@ -45,10 +48,48 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    public function article(){
+    public function article()
+    {
         return $this->hasMany(Article::class);
     }
-    public function comments(){
+    public function comments()
+    {
         return $this->hasMany(Comment::class);
+    }
+
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class);
+    }
+    public function hasLiked($article_id)
+    {
+        return $this->likes()->where('article_id', $article_id)->where('like', true)->exists();
+    }
+public function toggleLikeDislike($article_id, $like)
+    {
+
+        $existingLike = $this->likes()->where('article_id', $article_id)->first();
+
+
+        if ($existingLike == null) {
+        //     if ($existingLike->like == $like) {
+        //         $existingLike->delete();
+
+        //         return [
+        //             'hasLiked' => false,
+        //             'hasDisliked' => false
+        //         ];
+        //     } else {
+        //         $existingLike->update(['like' => $like]);
+        //     }
+        } else {
+            $this->likes()->create([
+                'article_id' => $article_id,
+                'user_id' =>$this->id,
+                'like' => $like,
+            ]);
+        }
+        return "has being created";  
     }
 }

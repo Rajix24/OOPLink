@@ -43,6 +43,14 @@
                     <button class="btn btn-danger w-100" type="submit">Delete</button>
                 </form>
             </div>
+            <div class="likes">
+                @if (Auth::user()->hasLiked($article->id))
+                <i class="fa-solid fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
+                @else
+                <i class="fa-regular fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
+                @endif
+                <span class="like-counter" id="like-counter"></span>
+            </div>
             <div id="box"></div>
             <form id="form-action" class="comment-input">
                 @csrf
@@ -64,7 +72,7 @@
         function fetchArticles() {
             axios.get('/comment/{{ $article->id }}').then(respense => {
                 renderArticles(respense.data.data.comments || respense.data.data);
-        });
+            });
         }
         fetchArticles();
         document.getElementById('form-action').addEventListener("submit", (e) => {
@@ -80,7 +88,7 @@
                     console.log("{{ Auth::id() }}")
                     e.target.reset();
                     // console.log("test");
-                    fetchArticles(); 
+                    fetchArticles();
                 })
                 .catch(error => {
                     console.error("Error details:", error.response?.data || error.message);
@@ -98,5 +106,65 @@
             });
             document.getElementById('box').innerHTML = content;
         }
+        const like = document.getElementById("like_{{ $article->id }}")
+        like.addEventListener("click", function(e) {
+            e.preventDefault();
+            like.classList.toggle("fa-solid");
+            like.classList.toggle("fa-regular");
+            const request = {
+                article_id : '{{ $article->id }}',
+                like:true,
+            };  
+            axios.post("/register-like", request).then(response => {
+                console.log(response.data);
+                countLike();
+            });
+
+        });
+        countLike();
+        function countLike() {
+            axios.get("http://localhost:8000/countLike/{{$article->id}}" ).then(response => {
+                document.getElementById("like-counter").innerText = response.data.data
+            });
+        }
     </script>
+    <style>
+        .like-counter {
+            font-size: 20px;
+        }
+    </style>
 </x-articles>
+
+
+
+
+
+
+public function toggleLikeDislike($postId, $like)
+{
+// Check if the like/dislike already exists
+$existingLike = $this->likes()->where('post_id', $postId)->first();
+
+if ($existingLike) {
+if ($existingLike->like == $like) {
+$existingLike->delete();
+
+return [
+'hasLiked' => false,
+'hasDisliked' => false
+];
+} else {
+$existingLike->update(['like' => $like]);
+}
+} else {
+$this->likes()->create([
+'post_id' => $postId,
+'like' => $like,
+]);
+}
+
+return [
+'hasLiked' => $this->hasLiked($postId),
+'hasDisliked' => $this->hasDisliked($postId)
+];
+}
