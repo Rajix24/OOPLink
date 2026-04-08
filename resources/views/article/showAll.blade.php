@@ -43,6 +43,9 @@
                     <button class="btn btn-danger w-100" type="submit">Delete</button>
                 </form>
             </div>
+            <div class="likes">
+                <i class="fa-regular fa-heart" id="like" style="color:red; font-size:30px;"></i>
+            </div>
             <div id="box"></div>
             <form id="form-action" class="comment-input">
                 @csrf
@@ -64,7 +67,7 @@
         function fetchArticles() {
             axios.get('/comment/{{ $article->id }}').then(respense => {
                 renderArticles(respense.data.data.comments || respense.data.data);
-        });
+            });
         }
         fetchArticles();
         document.getElementById('form-action').addEventListener("submit", (e) => {
@@ -80,7 +83,7 @@
                     console.log("{{ Auth::id() }}")
                     e.target.reset();
                     // console.log("test");
-                    fetchArticles(); 
+                    fetchArticles();
                 })
                 .catch(error => {
                     console.error("Error details:", error.response?.data || error.message);
@@ -98,5 +101,11 @@
             });
             document.getElementById('box').innerHTML = content;
         }
+        const like = document.getElementById("like")
+        like.addEventListener("click", function(e) {
+            e.preventDefault();
+            like.classList.toggle("fa-solid");
+            like.classList.toggle("fa-regular");
+        });
     </script>
 </x-articles>

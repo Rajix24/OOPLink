@@ -11,4 +11,6 @@
 
 
 <a href="{{ route("article.index") }}" class="btn btn-primary"> see articles</a>
+<a href="{{ route("categories.index") }}" class="btn btn-primary"> categories</a>
+<a href="{{ route("tag.index") }}" class="btn btn-primary"> see tags</a>
 </x-layout>
