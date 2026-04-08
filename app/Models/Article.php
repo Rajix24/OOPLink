@@ -6,6 +6,8 @@ use App\Models\Image;
 use App\Models\Category;
 use App\Models\Link;
 use App\Models\Comment;
+use App\Models\Like;
+
 use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
@@ -40,5 +42,9 @@ class Article extends Model
     public function comments(){
         return $this->hasMany(Comment::class);
     } 
+    public function likes()
+    {
+        return $this->hasMany(Like::class)->where("like", true);    
+    }
 }
 

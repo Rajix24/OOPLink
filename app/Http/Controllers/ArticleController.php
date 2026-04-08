@@ -6,7 +6,9 @@ use App\Http\Requests\ArticleRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\Image;
+use App\Models\Like;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage as FacadesStorage;
 use Storage;
@@ -63,7 +65,6 @@ class ArticleController extends Controller
         }
         $article->category()->sync($request->category_id);
         return redirect()->route('article.index');
-
     }
 
     /**
@@ -138,5 +139,28 @@ class ArticleController extends Controller
         $article->category()->detach();
         $article->delete();
         return redirect()->route('article.index');
+    }
+
+    public function likeHandler(Request $request)
+    {
+        $article = Article::find($request->input("article_id"));
+        $user = Auth::user();
+        $existingLike = $user->likes()->where('article_id', $article->id)->first();
+
+        if ($existingLike != null) {
+            if ($existingLike->like == $request->input('like')) {
+                $existingLike->delete();
+                return response()->json([
+                    "data" =>  'has been deleted',
+                ]);
+            }
+        } else {
+            $data = Like::create([
+                'article_id' => $article->id,
+                'user_id' => $user->id,
+                'like' => $request->input("like"),
+            ]);
+        }
+        return response()->json(['status' => true, 'message' => 'has remove like']);
     }
 }

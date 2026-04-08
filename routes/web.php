@@ -6,7 +6,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
+use App\Models\Article;
+use App\Models\User;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -39,4 +42,11 @@ Route::middleware("auth")->group(function () {
     Route::resource('article', ArticleController::class);
     Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
     Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
+    Route::get("/countLike/{id}", function ($id){
+        $article = Article::find($id);
+        return response()->json([
+            "data" => $article->likes->count()
+        ]) ;
+    });
+    Route::post('/register-like', [ArticleController::class , "likeHandler"]);
 });
