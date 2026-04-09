@@ -1,4 +1,17 @@
 <x-articles>
+    <div class="follow">
+        @if (!Auth::user()->follow($article->user))
+        <form id="follow-form" action="{{ route('follow', $article->user->id) }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-primary">follow</button>
+        </form>
+        @else
+        <form action="{{ route('unfollow', $article->user) }}" method="post">
+            @csrf
+            <button type="submit" class="btn btn-danger">unfollow</button>
+        </form>
+        @endif
+    </div>
     <div class="col-md-4">
         <div class="card shadow-sm m-4">
             @if ($article->images != null)
@@ -112,9 +125,9 @@
             like.classList.toggle("fa-solid");
             like.classList.toggle("fa-regular");
             const request = {
-                article_id : '{{ $article->id }}',
-                like:true,
-            };  
+                article_id: '{{ $article->id }}',
+                like: true,
+            };
             axios.post("/register-like", request).then(response => {
                 console.log(response.data);
                 countLike();
@@ -122,10 +135,18 @@
 
         });
         countLike();
+
         function countLike() {
-            axios.get("http://localhost:8000/countLike/{{$article->id}}" ).then(response => {
+            axios.get("http://localhost:8000/countLike/{{$article->id}}").then(response => {
                 document.getElementById("like-counter").innerText = response.data.data
             });
+        }
+
+        function follow(){
+            const request = '{{ $article->user }}'
+            axios.post('', request).then(
+
+            );
         }
     </script>
     <style>
@@ -134,37 +155,3 @@
         }
     </style>
 </x-articles>
-
-
-
-
-
-
-public function toggleLikeDislike($postId, $like)
-{
-// Check if the like/dislike already exists
-$existingLike = $this->likes()->where('post_id', $postId)->first();
-
-if ($existingLike) {
-if ($existingLike->like == $like) {
-$existingLike->delete();
-
-return [
-'hasLiked' => false,
-'hasDisliked' => false
-];
-} else {
-$existingLike->update(['like' => $like]);
-}
-} else {
-$this->likes()->create([
-'post_id' => $postId,
-'like' => $like,
-]);
-}
-
-return [
-'hasLiked' => $this->hasLiked($postId),
-'hasDisliked' => $this->hasDisliked($postId)
-];
-}
