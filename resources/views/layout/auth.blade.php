@@ -4,26 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>login register</title>
+    <title>register</title>
     @yield('auth-links')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <style>
-        body {
-            width: 100%;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        main {
-            width: 600px;
-            height: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ asset('storage/css/auth.css') }}">
 </head>
 
 <body>
+    <nav class="nav">
+        <div class="app-logo d-flex">
+            <img src="{{ asset('storage/logo.png') }}" alt="logo" height="70" width="auth">
+            <p class="oop">OOPLink</p>
+        </div>
+        <div class="links">
+            <div class="link-home">
+                <a href="">Home</a>
+                <a href="">About</a>
+                <a href="">Contact</a>
+            </div>
+            <div class="actions">
+                @yield("auth-btn")
+            </div>
+        </div>
+    </nav>
     <main class="main">
         @yield('auth-action')
     </main>
