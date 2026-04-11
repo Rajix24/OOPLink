@@ -10,7 +10,7 @@ class UserRelationController extends Controller
     public function follow(User $user)
     {
         $follower = auth()->user();
-        $follower->following()->attach($user);
+        $follower->following()->attach($user->id);
         return back()->with("you followed");
     }
     public function unfollow(User $user)

@@ -1,12 +1,12 @@
 <x-articles>
     <div class="follow">
         @if (!Auth::user()->follow($article->user))
-        <form id="follow-form" action="{{ route('follow', $article->user->id) }}" method="post">
+        <form action="{{ route('follow', $article->user) }}" method="POST">
             @csrf
             <button type="submit" class="btn btn-primary">follow</button>
         </form>
         @else
-        <form action="{{ route('unfollow', $article->user) }}" method="post">
+        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
             @csrf
             <button type="submit" class="btn btn-danger">unfollow</button>
         </form>
@@ -142,12 +142,6 @@
             });
         }
 
-        function follow(){
-            const request = '{{ $article->user }}'
-            axios.post('', request).then(
-
-            );
-        }
     </script>
     <style>
         .like-counter {

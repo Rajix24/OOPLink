@@ -51,6 +51,12 @@ Route::middleware("auth")->group(function () {
         ]) ;
     });
     Route::post('/register-like', [ArticleController::class , "likeHandler"]);
+
     Route::post('/follow/{user}', [UserRelationController::class, 'follow'])->name('follow');
-    Route::post('/unfollow', [UserRelationController::class, 'unfollow'])->name('unfollow');
+    Route::post('/unfollow/{user}', [UserRelationController::class, 'unfollow'])->name('unfollow');
+});
+
+
+Route::get('/test', function (){
+    return view('test');
 });
