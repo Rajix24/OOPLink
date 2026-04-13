@@ -1,6 +1,6 @@
 @extends('layout.auth')
 @section("auth-btn")
-<button class="btn btn-primary singUp">Sing up</button>
+<a href="{{ route('register') }}" class="btn btn-primary singUp">Sing up</a>
 @endsection
 @section("auth-action")
 <div class="login">
@@ -19,16 +19,15 @@
     @endif
     <form method="POST" action="{{ route('login.attempt') }}">
         @csrf
-        <div class="form-floating mb-3">
-            <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                required>
-            <label for="floatingInput">Email address</label>
+        <div class="mb-3">
+            <label class="input-lable" for="email">Email</label>
+            <input name="email" type="email" class="form-control" id="floatingInput" placeholder="user@example.com"required>
         </div>
 
-        <div class="form-floating mb-3">
-            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                required>
-            <label for="floatingPassword">Password</label>
+        <div class="mb-3">
+            <label class="input-lable" for="Password">Password</label>
+            <!-- <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"required> -->
+             <x-bar_input name="password" placholder="Enter password" id="floatingPassword"></x-bar_input>
         </div>
 
         <div class="form-check mb-3">
@@ -49,6 +48,5 @@
             <a href="#" class="small">Forgot password?</a>
         </div>
     </form>
-    @endsection
-
 </div>
+    @endsection

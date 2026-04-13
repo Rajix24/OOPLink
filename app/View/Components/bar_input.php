@@ -6,14 +6,18 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class input extends Component
+class bar_input extends Component
 {
+
+    public $name;
+    public $placholder;
     /**
      * Create a new component instance.
      */
-    public function __construct()
+    public function __construct($name, $placeholder)
     {
-        //
+        $this->name = $name;
+        $this->placholder = $placeholder;
     }
 
     /**
@@ -21,6 +25,6 @@ class input extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.input');
+        return view('components.bar_input');
     }
 }

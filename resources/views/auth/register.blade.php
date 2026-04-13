@@ -1,4 +1,7 @@
-<x-layout>
+@extends('layout.auth')
+@section("auth-btn")
+@endsection
+@section("auth-action")
      @if ($errors->any())
         <div>
             @foreach ($errors->all() as $error)
@@ -49,4 +52,4 @@
                     here</a></p>
         </div>
     </form>
-</x-layout>
+@endsection
