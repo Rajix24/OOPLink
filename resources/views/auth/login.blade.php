@@ -27,7 +27,7 @@
         <div class="mb-3">
             <label class="input-lable" for="Password">Password</label>
             <!-- <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"required> -->
-             <x-bar_input name="password" placholder="Enter password" id="floatingPassword"></x-bar_input>
+             <x-bar_input name="password" placeholder="Enter password" id="floatingPassword"></x-bar_input>
         </div>
 
         <div class="form-check mb-3">
@@ -38,7 +38,7 @@
         </div>
 
         <div class="d-grid">
-            <button class="btn btn-primary btn-lg" type="submit">Login</button>
+            <button class="btn btn-primary btn-lg auth-submit-btn" type="submit">Login</button>
         </div>
 
         <hr class="my-4">
