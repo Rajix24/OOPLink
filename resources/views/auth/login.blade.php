@@ -1,25 +1,33 @@
-<x-layout>
+@extends('layout.auth')
+@section("auth-btn")
+<a href="{{ route('register') }}" class="btn btn-primary singUp">Sing up</a>
+@endsection
+@section("auth-action")
+<div class="login">
+    <div class="welcome">
+        <h3 class="well">welcome</h3>
+        <p>Please enter your details to sign in.</p>
+    </div>
     @if ($errors->any())
-        <div>
-            @foreach ($errors->all() as $error)
-                <ul>
-                    <li>{{ $error }}</li>
-                </ul>
-            @endforeach
-        </div>
+    <div>
+        @foreach ($errors->all() as $error)
+        <ul>
+            <li>{{ $error }}</li>
+        </ul>
+        @endforeach
+    </div>
     @endif
     <form method="POST" action="{{ route('login.attempt') }}">
         @csrf
-        <div class="form-floating mb-3">
-            <input name="email" type="email" class="form-control" id="floatingInput" placeholder="name@example.com"
-                required>
-            <label for="floatingInput">Email address</label>
+        <div class="mb-3">
+            <label class="input-lable" for="email">Email</label>
+            <input name="email" type="email" class="form-control" id="floatingInput" placeholder="user@example.com"required>
         </div>
 
-        <div class="form-floating mb-3">
-            <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"
-                required>
-            <label for="floatingPassword">Password</label>
+        <div class="mb-3">
+            <label class="input-lable" for="Password">Password</label>
+            <!-- <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"required> -->
+             <x-bar_input name="password" placeholder="Enter password" id="floatingPassword"></x-bar_input>
         </div>
 
         <div class="form-check mb-3">
@@ -30,7 +38,7 @@
         </div>
 
         <div class="d-grid">
-            <button class="btn btn-primary btn-lg" type="submit">Login</button>
+            <button class="btn btn-primary btn-lg auth-submit-btn" type="submit">Login</button>
         </div>
 
         <hr class="my-4">
@@ -40,4 +48,5 @@
             <a href="#" class="small">Forgot password?</a>
         </div>
     </form>
-</x-layout>
+</div>
+    @endsection

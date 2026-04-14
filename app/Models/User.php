@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Comment;
-
+use App\Models\Like;
+use Faker\Provider\UserAgent;
 
 class User extends Authenticatable
 {
@@ -66,30 +67,14 @@ class User extends Authenticatable
     {
         return $this->likes()->where('article_id', $article_id)->where('like', true)->exists();
     }
-public function toggleLikeDislike($article_id, $like)
-    {
-
-        $existingLike = $this->likes()->where('article_id', $article_id)->first();
-
-
-        if ($existingLike == null) {
-        //     if ($existingLike->like == $like) {
-        //         $existingLike->delete();
-
-        //         return [
-        //             'hasLiked' => false,
-        //             'hasDisliked' => false
-        //         ];
-        //     } else {
-        //         $existingLike->update(['like' => $like]);
-        //     }
-        } else {
-            $this->likes()->create([
-                'article_id' => $article_id,
-                'user_id' =>$this->id,
-                'like' => $like,
-            ]);
-        }
-        return "has being created";  
+    public function following(){
+        return $this->belongsToMany(User::class,'user_relations', 'following_id', "user_id")->withTimestamps(); 
     }
+    public function follower(){
+        return $this->belongsToMany(User::class,'user_relations', "user_id", 'following_id')->withTimestamps();
+    }
+    public function follow(User $user){
+        return $this->following()->where('user_id', $user->id)->exists();
+    }
+
 }

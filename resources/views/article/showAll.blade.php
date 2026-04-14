@@ -1,4 +1,17 @@
 <x-articles>
+    <div class="follow">
+        @if (!Auth::user()->follow($article->user))
+        <form action="{{ route('follow', $article->user) }}" method="POST">
+            @csrf
+            <button type="submit" class="btn btn-primary">follow</button>
+        </form>
+        @else
+        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
+            @csrf
+            <button type="submit" class="btn btn-danger">unfollow</button>
+        </form>
+        @endif
+    </div>
     <div class="col-md-4">
         <div class="card shadow-sm m-4">
             @if ($article->images != null)
@@ -112,9 +125,9 @@
             like.classList.toggle("fa-solid");
             like.classList.toggle("fa-regular");
             const request = {
-                article_id : '{{ $article->id }}',
-                like:true,
-            };  
+                article_id: '{{ $article->id }}',
+                like: true,
+            };
             axios.post("/register-like", request).then(response => {
                 console.log(response.data);
                 countLike();
@@ -122,11 +135,13 @@
 
         });
         countLike();
+
         function countLike() {
-            axios.get("http://localhost:8000/countLike/{{$article->id}}" ).then(response => {
+            axios.get("http://localhost:8000/countLike/{{$article->id}}").then(response => {
                 document.getElementById("like-counter").innerText = response.data.data
             });
         }
+
     </script>
     <style>
         .like-counter {
@@ -134,4 +149,3 @@
         }
     </style>
 </x-articles>
-
