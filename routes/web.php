@@ -6,8 +6,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserRelationController;
 use App\Models\Article;
 use App\Models\User;
+use App\Models\UserRelation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,4 +51,12 @@ Route::middleware("auth")->group(function () {
         ]) ;
     });
     Route::post('/register-like', [ArticleController::class , "likeHandler"]);
+
+    Route::post('/follow/{user}', [UserRelationController::class, 'follow'])->name('follow');
+    Route::post('/unfollow/{user}', [UserRelationController::class, 'unfollow'])->name('unfollow');
+});
+
+
+Route::get('/test', function (){
+    return view('test');
 });
