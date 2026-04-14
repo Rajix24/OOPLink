@@ -18,6 +18,9 @@
     </div>
 </div>
 @endsection
+
+
+
 @section('dashboard-action')
 
 <h1>wellcome {{ Auth::user()->name }}</h1>
