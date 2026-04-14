@@ -28,6 +28,7 @@
             </div>
         </div>
     </nav>
+
     <main class="main">
         @yield('dashboard-action')
     </main>

@@ -5,12 +5,18 @@
 @endsection
 
 @section('dashboard-btn')
-<form method="post" action="{{ route('logout') }}">
-    @csrf
-    <button class=" logout" type="submit">
-    <img src="{{ asset('storage/logout.png') }}" class="logout-imag" width="40px" height="auto" alt="">    
-    </button>
-</form>
+<div class="dropdown">
+    <button class="dropdown-btn"><img src="{{ asset('storage/user _1.png') }}" class="logout-imag" width="40px" height="auto" alt=""></button>
+    <div class="dropdown-content">
+        <a href="#">Account</a>
+        <form method="post" action="{{ route('logout') }}">
+            @csrf
+            <button class="btn btn-danger logout" type="submit">
+                    logout
+            </button>
+        </form>
+    </div>
+</div>
 @endsection
 @section('dashboard-action')
 
