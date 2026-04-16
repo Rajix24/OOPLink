@@ -4,6 +4,8 @@
 <link rel="stylesheet" href="{{ asset('storage/css/show.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 @endsection
 @section('dashboard-btn')
 <div class="dropdown">
@@ -210,4 +212,4 @@
     .like-counter {
         font-size: 20px;
     }
-</style>box
+</style>
