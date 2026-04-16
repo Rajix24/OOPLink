@@ -97,7 +97,7 @@ class ArticleController extends Controller
             'user_id' => Auth::id(),
             "title" => $request->title,
             'introduction' => $request->introduction,
-            'body' => $request->introduction,
+            'body' => $request->body,
             'conclusion' => $request->conclusion,
             'tag_id' => $request->tag_id,
         ]);
