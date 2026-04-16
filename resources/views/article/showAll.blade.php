@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="{{ asset('storage/css/show.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
 @section('dashboard-btn')
@@ -24,59 +24,61 @@
 @section('dashboard-action')
 <div class="card-article">
     <div class="box-articel">
-            <div class="image-contianer">
-                @if ($article->images != null)
-                @foreach ($article->images as $image)
-                <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
-                    height="450px">
-                @endforeach
+        <div class="image-contianer">
+            @if ($article->images != null)
+            @foreach ($article->images as $image)
+            <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
+                height="450px">
+            @endforeach
+            @else
+            <h3>Images are not here</h3>
+            @endif
+        </div>
+        <div class="information">
+            <div class="show-image">
+
+            </div>
+            <div class="name-show">
+                <p>Younes Rajix</p>
+                <p>public in </p>
+            </div>
+            <div class="follow">
+                @if (!Auth::user()->follow($article->user))
+                <form action="{{ route('follow', $article->user) }}" method="POST">
+                    @csrf
+                    <button type="submit" class=" follow-btn ">follow</button>
+                </form>
                 @else
-                <h3>Images are not here</h3>
+                <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
+                    @csrf
+                    <button type="submit" class="  unfollow-btn">unfollow</button>
+                </form>
                 @endif
             </div>
-            <div class="information">
-                <div class="show-image">
-
-                </div>
-                <div class="name-show">
-                    <p>Younes Rajix</p>
-                    <p>public in </p>
-                </div>
-                <div class="follow">
-                    @if (!Auth::user()->follow($article->user))
-                    <form action="{{ route('follow', $article->user) }}" method="POST">
-                        @csrf
-                        <button class="follow-btn" type="submit" class="btn btn-primary">follow</button>
-                    </form>
-                    @else
-                    <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">unfollow</button>
-                    </form>
-                    @endif
-                </div>
-            </div>
+        </div>
         <div class="card-body">
-            <h5 class="card-title">title: {{ $article->title }}</h5>
-            <p class="card-text"> intro :
+            <h5 class="card-title">{{ $article->title }}</h5>
+            <p class="card-text"> 
                 {{ $article->introduction }}
             </p>
-            <p> body :
+            <p>
                 {{ $article->body }}
             </p>
-            <p> consclusion :
+            <p>
                 {{ $article->conclusion }}
             </p>
+        </div>
+        <div class="category-tag">
             <span>categories</span>
             @foreach ($article->category as $category)
             <p class="btn btn-secondary">{{ $category->category }}</p>
             @endforeach
             <span>Tags</span>
             <p class="btn btn-secondary">{{ $article->tag->tag }}</p>
-            <div class="d-flex justify-content-between">
-                <button class="btn btn-primary btn-sm">Like</button>
-                <button class="btn btn-outline-secondary btn-sm">Comment</button>
-            </div>
+        </div>
+        <div class="d-flex justify-content-between">
+            <button class="btn btn-primary btn-sm">Like</button>
+            <button class="btn btn-outline-secondary btn-sm">Comment</button>
         </div>
         <div class="actions d-flex flex-column gap-2">
             <form action="{{  route('article.edit', $article) }}" method="GET">
@@ -160,7 +162,7 @@
             content: document.getElementById("content").value,
             article_id: document.getElementById("article_id").value,
         }
-        console.log(formData);
+        // console.log(formData);
         axios.post("/comment", formData)
             .then(response => {
                 console.log(formData);

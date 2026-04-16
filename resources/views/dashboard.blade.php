@@ -58,9 +58,9 @@
                 <span class="meta-date">10 min read</span>
             </div>
             <!-- Excerpt -->
-            <p class="article-excerpt">
+            <!-- <p class="article-excerpt">
                 {{ $article->introduction }}
-            </p>
+            </p> -->
             <!-- Footer: Button + Stats -->
             <div class="article-footer">
                 <a href="{{ route("article.show", $article) }}" class="read-btn">Read article →</a>
