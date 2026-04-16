@@ -23,11 +23,6 @@
 
 @section('dashboard-action')
 
-<!-- <h1>wellcome {{ Auth::user()->name }}</h1> -->
-@auth
-<!-- <h1>user are auth {{ Auth::user()->id }}</h1> -->
-@endauth
-
 <div class="article-box">
     @foreach ($articles as $article)
     <div class="article-card">
