@@ -70,16 +70,17 @@
         </div>
         <div class="category-tag">
             <span>categories</span>
+            <div class="category-box">
             @foreach ($article->category as $category)
-            <p class="btn btn-secondary">{{ $category->category }}</p>
+            <p class="category ">{{ $category->category }}</p>
             @endforeach
+            </div>
             <span>Tags</span>
-            <p class="btn btn-secondary">{{ $article->tag->tag }}</p>
+            <div class="tags-box">
+            <p class="tags">{{ $article->tag->tag }}</p>
+            </div>
         </div>
-        <div class="d-flex justify-content-between">
-            <button class="btn btn-primary btn-sm">Like</button>
-            <button class="btn btn-outline-secondary btn-sm">Comment</button>
-        </div>
+<!-- 
         <div class="actions d-flex flex-column gap-2">
             <form action="{{  route('article.edit', $article) }}" method="GET">
                 @csrf
@@ -91,7 +92,8 @@
                 @method('delete')
                 <button class="btn btn-danger w-100" type="submit">Delete</button>
             </form>
-        </div>
+        </div> -->
+        <div class="user-action">
         <div class="likes">
             @if (Auth::user()->hasLiked($article->id))
             <i class="fa-solid fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
@@ -100,13 +102,14 @@
             @endif
             <span class="like-counter" id="like-counter"></span>
         </div>
-        <div id="box"></div>
         <form id="form-action" class="comment-input">
             @csrf
             <input class="comment" id="content" type="text" placeholder="comments....">
             <input type="hidden" id="article_id" value="{{ $article->id }}">
-            <button class="btn" type="submit">comment</button>
+            <button class="btn-comment" type="submit">comment</button>
         </form>
+        </div>
+        <div id="box" class="comment-box"></div>
     </div>
 
     <a href="{{ route('article.create') }}">cerate article</a>
@@ -179,9 +182,9 @@
         let content = "";
         articles.forEach(article => {
             content += `
-            <div style="border:1px solid #ddd; padding:10px; margin:10px 0;">
-                <h4>comments: ${article.content}</h4>
-                <p><strong>from:</strong> ${article.user.name || ""}</p>
+            <div class="commment-show" style="border:1px solid #ddd; padding:10px; margin:10px 0;">
+            <h4><strong>from:</strong> ${article.user.name || ""}</h4>
+            <p>comments: ${article.content}</p>
             </div>`;
         });
         document.getElementById('box').innerHTML = content;
