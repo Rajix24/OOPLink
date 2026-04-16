@@ -20,8 +20,10 @@ class ArticleController extends Controller
      */
     public function index()
     {
+        
         $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
-        return view("article.show", compact('articles'));
+        // dd($articles[0]->created_at);
+        return view("dashboard", compact('articles'));
     }
 
     /**
