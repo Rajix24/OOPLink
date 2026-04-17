@@ -4,6 +4,7 @@
 @endsection
 @section("auth-action")
 <div class="register">
+    <div class="contents">
     <div class="register-bar">
         <div class="image">
             <img src="{{ asset("storage/user.png") }}" height="auto" width="80px" alt="User">
@@ -60,5 +61,6 @@
             <p class="small mb-0">Already have an account? <a href="{{ route('login') }}" class="fw-bold text-decoration-none">Login here</a></p>
         </div>
     </form>
+    </div>
 </div>
 @endsection

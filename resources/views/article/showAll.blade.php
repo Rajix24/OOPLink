@@ -7,19 +7,8 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
-@section('dashboard-btn')
-<div class="dropdown">
-    <button class="dropdown-btn"><img src="{{ asset('storage/user _1.png') }}" class="logout-imag" width="40px" height="auto" alt=""></button>
-    <div class="dropdown-content">
-        <a href="#">Account</a>
-        <form method="post" action="{{ route('logout') }}">
-            @csrf
-            <button class="btn btn-danger logout" type="submit">
-                logout
-            </button>
-        </form>
-    </div>
-</div>
+@section('title')
+    <title>Article {{ $article->user->name }}</title>
 @endsection
 @section('dashboard-action')
 <div class="card-article">
@@ -80,19 +69,6 @@
             <p class="tags">{{ $article->tag->tag }}</p>
             </div>
         </div>
-<!-- 
-        <div class="actions d-flex flex-column gap-2">
-            <form action="{{  route('article.edit', $article) }}" method="GET">
-                @csrf
-                @method('PUT')
-                <button class="btn btn-warning w-100" type="submit">Edit</button>
-            </form>
-            <form action="{{  route('article.destroy', $article) }}" method="post">
-                @csrf
-                @method('delete')
-                <button class="btn btn-danger w-100" type="submit">Delete</button>
-            </form>
-        </div> -->
         <div class="user-action">
         <div class="likes">
             @if (Auth::user()->hasLiked($article->id))
@@ -112,7 +88,7 @@
         <div id="box" class="comment-box"></div>
     </div>
 
-    <a href="{{ route('article.create') }}">cerate article</a>
+    <!-- <a href="{{ route('article.create') }}">cerate article</a> -->
 </div>
 
 <aside>
@@ -182,9 +158,9 @@
         let content = "";
         articles.forEach(article => {
             content += `
-            <div class="commment-show" style="border:1px solid #ddd; padding:10px; margin:10px 0;">
-            <h4><strong>from:</strong> ${article.user.name || ""}</h4>
-            <p>comments: ${article.content}</p>
+            <div class="comment-show" style="  border-left: 3px solid var(--primary-color); padding-left: 1rem;">
+                <h5>From:  ${article.user.name || ""}</h5>
+                <p>comments: ${article.content}</p>
             </div>`;
         });
         document.getElementById('box').innerHTML = content;

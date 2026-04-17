@@ -8,6 +8,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\UserRelationController;
 use App\Models\Article;
+use App\Models\Category;
+use App\Models\Tag;
 use App\Models\User;
 use App\Models\UserRelation;
 use Illuminate\Http\RedirectResponse;
@@ -17,25 +19,47 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
-    return view('welcome');
+    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->take(2)->get();
+    return view("welcome", compact('articles'));
 });
-Route::get('login', function(){
+
+
+
+Route::get('/account', function(){
+    $categories = Category::all();
+    $tags = Tag::all();
+    $user = User::find(auth()->id());
+    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
+    return view('account', compact('categories','tags', 'articles', 'user'));
+})->name('account')->middleware('auth');
+
+
+Route::middleware('auth')->group(function (){
+
+}) ->get('')->name('');
+
+
+
+
+
+
+
+
+Route::get('login', function () {
     return view('auth.login');
 })->name('login');
 
 Route::post('login', LoginController::class)->middleware('throttle:5,1')->name('login.attempt');
-Route::view('dashboard', 'dashboard')->name('dashboard')->middleware('auth');
-
+Route::get('dashboard', [ArticleController::class, 'index'])->middleware('auth')->name('dashboard');
 Route::view('register', 'auth.register')->name('register');
 Route::post('register', RegisterController::class)->name('register.store');
 
-Route::post('logout', function(): RedirectResponse{
+Route::post('logout', function (): RedirectResponse {
     Auth::guard('web')->logout();
     Session::invalidate();
     Session::regenerateToken();
     return redirect('/');
 })->name('logout');
-
 
 
 Route::middleware("auth")->group(function () {
@@ -44,19 +68,14 @@ Route::middleware("auth")->group(function () {
     Route::resource('article', ArticleController::class);
     Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
     Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
-    Route::get("/countLike/{id}", function ($id){
+    Route::get("/countLike/{id}", function ($id) {
         $article = Article::find($id);
         return response()->json([
             "data" => $article->likes->count()
-        ]) ;
+        ]);
     });
-    Route::post('/register-like', [ArticleController::class , "likeHandler"]);
+    Route::post('/register-like', [ArticleController::class, "likeHandler"]);
 
     Route::post('/follow/{user}', [UserRelationController::class, 'follow'])->name('follow');
     Route::post('/unfollow/{user}', [UserRelationController::class, 'unfollow'])->name('unfollow');
-});
-
-
-Route::get('/test', function (){
-    return view('test');
 });

@@ -22,7 +22,6 @@ class ArticleController extends Controller
     {
         
         $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
-        // dd($articles[0]->created_at);
         return view("dashboard", compact('articles'));
     }
 
@@ -140,7 +139,7 @@ class ArticleController extends Controller
         $article->link()->delete();
         $article->category()->detach();
         $article->delete();
-        return redirect()->route('article.index');
+        return back();
     }
 
     public function likeHandler(Request $request)
