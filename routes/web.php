@@ -30,14 +30,14 @@ Route::get('/account', function(){
     $categories = Category::all();
     $tags = Tag::all();
     $user = User::find(auth()->id());
-    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
+    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->where('user_id', Auth::id())->get();
     return view('account', compact('categories','tags', 'articles', 'user'));
 })->name('account')->middleware('auth');
 
 
 Route::middleware('auth')->group(function (){
     Route::get('account-edit', [AccountController::class, "show"])->name('account-edit');
-    Route::post('account-update', [AccountController::class, "update"])->name('update-account');
+    Route::put('account-update/{user}', [AccountController::class, "update"])->name('update-account');
 });
 
 

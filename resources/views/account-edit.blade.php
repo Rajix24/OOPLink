@@ -23,23 +23,24 @@
         <div class="create-box py-5 d-flex justify-content-center create-cont">
             <div class="create-article-card p-4" style="max-width: 750px; width:100%;">
                 <h2 class="create-title mb-4 text-center">Edit Profile</h2>
-                <form action="{{ route('update-account') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('update-account', $user) }}" method="POST" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="mb-3">
                         <label class="form-label ">Name</label>
                         <input type="text" name="name" value="{{ $user->name }}" class="form-control custom-input" placeholder="Enter Name">
                     </div>
                     <div class="mb-3">
                         <label class="form-label">email</label>
-                        <input name="email" value="{{ $user->email }}" class="form-control custom-input" placeholder="Enter Email">
+                        <input name="email" type="email" value="{{ $user->email }}" class="form-control custom-input" placeholder="Enter Email">
                     </div>
                     <div class="mb-3">
                         <label class="form-label ">Upload photo profile</label>
                         <input type="file" name="photo" class="upload-files">
                     </div>
                     <div class="mb-3">
-                        <label class="form-label ">Upload photo profile</label>
-                        <input type="number" value="{{ $user->tele }}" name="title" placeholder="Enter tele" class="p-2 upload-files">
+                        <label class="form-label ">Tele:</label>
+                        <input type="number" value="{{ $user->tele }}" name="tele" placeholder="Enter tele" class="p-2 upload-files">
                     </div>
                     <button type="submit" class=" submit-article-create w-100">Publish Article</button>
                 </form>

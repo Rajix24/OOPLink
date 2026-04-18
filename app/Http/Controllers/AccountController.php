@@ -16,24 +16,23 @@ class AccountController extends Controller
     }
     public function update(Request $request, User $user)
     {
+        // dd($user);
         $validation = $request->validate([
             'name'  => 'required|string',
             'email' => 'required|email',
-            'photo' => 'nullable|image',
-            'tele'  => 'nullable',
+            'photo' => 'nullable|image|mimes:jpg,png,jpeg|max:2048',
+            'tele'  => 'nullable|numeric',
         ]);
-
-        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
-            Storage::disk('public')->delete($user->photo);
-        }
-
         if ($request->hasFile('photo')) {
+            if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+                Storage::disk('public')->delete($user->photo);
+            }
             $path = $request->file('photo')->store('images', 'public');
             $validation['photo'] = $path;
         }
+        // dd($validation);
 
         $user->update($validation);
-
         return redirect()->route('account');
     }
 }

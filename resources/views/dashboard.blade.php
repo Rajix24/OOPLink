@@ -53,7 +53,7 @@
                 </h2>
                 <!-- Author Meta -->
                 <div class="article-meta">
-                    <div class="avatar">SR</div>
+                    <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
                     <span class="meta-author">{{ $article->user->name }}</span>
                     <div class="meta-dot"></div>
                     <span class="meta-date"> {{ $article->created_at }}</span>

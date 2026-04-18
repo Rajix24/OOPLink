@@ -14,13 +14,19 @@
     <div class="user-information">
         <div class="user-box">
             <div class="user-image">
-                <img src="" alt="user-image">
+                @if ($user->photo != null)
+                <img src="{{ asset('storage/'. $user->photo) }}" alt="user-image">
+                @else
+                <img src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
+                @endif
                 <div class="user-info">
-                    <h5>{{ $user->name }}</h5>
-                    <p>{{ $user->email }}</p>
+                    <div class="name-email">
+                        <h5>{{ $user->name }}</h5>
+                        <p>{{ $user->email }}</p>
+                    </div>
                     <form action="{{ route('account-edit') }}" method="get">
                         @csrf
-                        <button class="btn btn-light" type="submit">edit</button>
+                        <button class="btn btn-light" type="submit">Edit</button>
                     </form>
                 </div>
             </div>
@@ -31,10 +37,8 @@
         <div class="article-card">
             <div class="article-img-wrap">
                 @if ($article->images != null)
-                @foreach ($article->images as $image)
-                <img src="{{ asset('storage/' . $image->image) }}" class="image-container" alt="article image" width="400px"
+                <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
                     height="450px">
-                @endforeach
                 @else
                 <h3>Images are not here</h3>
                 @endif
@@ -50,7 +54,7 @@
                     <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
                 </h2>
                 <div class="article-meta">
-                    <div class="avatar">SR</div>
+                    <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
                     <span class="meta-author">{{ $article->user->name }}</span>
                     <div class="meta-dot"></div>
                     <span class="meta-date"> {{ $article->created_at }}</span>

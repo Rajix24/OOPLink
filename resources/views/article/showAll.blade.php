@@ -8,7 +8,7 @@
 
 @endsection
 @section('title')
-    <title>Article {{ $article->user->name }}</title>
+<title>Article {{ $article->user->name }}</title>
 @endsection
 @section('dashboard-action')
 <div class="card-article">
@@ -24,9 +24,12 @@
             @endif
         </div>
         <div class="information">
-            <div class="show-image">
-
-            </div>
+            @if ($article->user->photo != null)
+            <img class="show-image" src="{{ asset('storage/'. $article->user->photo) }}" alt="user-image">
+            @else
+            <img class="show-image" src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
+            @endif
+            <!-- <img class="show-image"> -->
             <div class="name-show">
                 <p>Younes Rajix</p>
                 <p>public in </p>
@@ -47,7 +50,7 @@
         </div>
         <div class="card-body">
             <h5 class="card-title">{{ $article->title }}</h5>
-            <p class="card-text"> 
+            <p class="card-text">
                 {{ $article->introduction }}
             </p>
             <p>
@@ -60,30 +63,30 @@
         <div class="category-tag">
             <span>categories</span>
             <div class="category-box">
-            @foreach ($article->category as $category)
-            <p class="category ">{{ $category->category }}</p>
-            @endforeach
+                @foreach ($article->category as $category)
+                <p class="category ">{{ $category->category }}</p>
+                @endforeach
             </div>
             <span>Tags</span>
             <div class="tags-box">
-            <p class="tags">{{ $article->tag->tag }}</p>
+                <p class="tags">{{ $article->tag->tag }}</p>
             </div>
         </div>
         <div class="user-action">
-        <div class="likes">
-            @if (Auth::user()->hasLiked($article->id))
-            <i class="fa-solid fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
-            @else
-            <i class="fa-regular fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
-            @endif
-            <span class="like-counter" id="like-counter"></span>
-        </div>
-        <form id="form-action" class="comment-input">
-            @csrf
-            <input class="comment" id="content" type="text" placeholder="comments....">
-            <input type="hidden" id="article_id" value="{{ $article->id }}">
-            <button class="btn-comment" type="submit">comment</button>
-        </form>
+            <div class="likes">
+                @if (Auth::user()->hasLiked($article->id))
+                <i class="fa-solid fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
+                @else
+                <i class="fa-regular fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
+                @endif
+                <span class="like-counter" id="like-counter"></span>
+            </div>
+            <form id="form-action" class="comment-input">
+                @csrf
+                <input class="comment" id="content" type="text" placeholder="comments....">
+                <input type="hidden" id="article_id" value="{{ $article->id }}">
+                <button class="btn-comment" type="submit">comment</button>
+            </form>
         </div>
         <div id="box" class="comment-box"></div>
     </div>

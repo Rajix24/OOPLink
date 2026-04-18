@@ -26,7 +26,12 @@
             </div>
             <div class="actions">
                 <div class="dropdown">
-                    <button class="dropdown-btn"><img src="{{ asset('storage/user _1.png') }}" class="logout-imag" width="40px" height="auto" alt=""></button>
+                    <button class="dropdown-btn">
+                    @if (auth()->user()->photo != NULL)
+                    <img src="{{ asset('storage/'.auth()->user()->photo) }}" class="logout-imag" alt="User-image"></button>
+                    @else
+                    <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image"></button>
+                    @endif    
                     <div class="dropdown-content">
                         <a href="{{ route('account') }}">Account</a>
                         <form method="post" action="{{ route('logout') }}">
