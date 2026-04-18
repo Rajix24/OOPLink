@@ -22,10 +22,7 @@
 </div>
 @endsection
 
-
-
 @section('dashboard-action')
-<div class="big">
     <div class="article-box">
         @foreach ($articles as $article)
         <div class="article-card">
@@ -68,40 +65,10 @@
         </div>
         @endforeach
     </div>
-</div>
-<aside>
-    <div class="create-article">
-        <a class="create-article-side-bar" href="{{ route('article.create') }}">Create Article</a>
-    </div>
-    <div class="topic">
-        <h5>Recommended topics</h5>
-        <div class="topic-link">
-            <a href="">HTML</a>
-        </div>
-        <div class="topic-link">
-            <a href="">HTML</a>
-        </div>
-        <div class="topic-link">
-            <a href="">HTML</a>
-        </div>
-    </div>
-    <div class="categories">
-        <h5>Categories</h5>
 
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-    </div>
-    <div class="follow-people">
-        <div class="pepole-image"></div>
-        <h4>Younes Rajix</h4>
-
-
-    </div>
-</aside>
-
-
+    @section('dashboard-script')
+    <script src="{{ asset('storage/js/layout.js') }}" ></script>
+    @endsection
 <!-- <a href="{{ route('article.create') }}" class="btn btn-primary">cerate article</a> -->
 
 <!-- 

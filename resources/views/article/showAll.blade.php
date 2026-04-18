@@ -95,41 +95,7 @@
         </div>
         <div id="box" class="comment-box"></div>
     </div>
-
-    <!-- <a href="{{ route('article.create') }}">cerate article</a> -->
 </div>
-
-<aside>
-    <div class="create-article">
-        <a class="create-article-side-bar" href="{{ route('article.create') }}">Create Article</a>
-    </div>
-    <div class="topic">
-        <h5>Recommended topics</h5>
-        <div class="topic-link">
-            <a href="">Ai chnge the world</a>
-        </div>
-        <div class="topic-link">
-            <a href="">Are Ai can make you better programmer</a>
-        </div>
-        <div class="topic-link">
-            <a href="">php is death</a>
-        </div>
-    </div>
-    <div class="categories">
-        <h5>Categories</h5>
-
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-    </div>
-    <div class="follow-people">
-        <div class="pepole-image"></div>
-        <h4>Younes Rajix</h4>
-
-
-    </div>
-</aside>
 @endsection
 @section('dashboard-script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
