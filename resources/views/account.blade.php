@@ -18,9 +18,9 @@
                 <div class="user-info">
                     <h5>{{ $user->name }}</h5>
                     <p>{{ $user->email }}</p>
-                    <form action="{{ route('account.edit') }}" method="get">
+                    <form action="{{ route('account-edit') }}" method="get">
                         @csrf
-                        <button type="submit">edit</button>
+                        <button class="btn btn-light" type="submit">edit</button>
                     </form>
                 </div>
             </div>

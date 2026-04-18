@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -35,8 +36,9 @@ Route::get('/account', function(){
 
 
 Route::middleware('auth')->group(function (){
-
-}) ->get('')->name('');
+    Route::get('account-edit', [AccountController::class, "show"])->name('account-edit');
+    Route::post('account-update', [AccountController::class, "update"])->name('update-account');
+});
 
 
 
