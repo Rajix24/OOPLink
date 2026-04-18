@@ -14,14 +14,20 @@
 <div class="card-article">
     <div class="box-articel">
         <div class="image-contianer">
-            @if ($article->images != null)
-            @foreach ($article->images as $image)
-            <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
-                height="450px">
-            @endforeach
-            @else
-            <h3>Images are not here</h3>
-            @endif
+            <div class="slider-wrapper">
+                <div class="slider" id="slider">
+                    @if ($article->images != null)
+                    @foreach ($article->images as $image)
+                    <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
+                        height="450px">
+                    @endforeach
+                    @else
+                    <h3>Images are not here</h3>
+                    @endif
+                </div>
+            </div>
+            <button class="prev" onclick="prevSlide()">❮</button>
+            <button class="next" onclick="nextSlide()">❯</button>
         </div>
         <div class="information">
             @if ($article->user->photo != null)
@@ -29,7 +35,6 @@
             @else
             <img class="show-image" src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
             @endif
-            <!-- <img class="show-image"> -->
             <div class="name-show">
                 <p>Younes Rajix</p>
                 <p>public in </p>
@@ -191,6 +196,7 @@
         });
     }
 </script>
+<script src="{{ asset('storage/js/articles.js') }}"></script>
 @endsection
 <style>
     .like-counter {
