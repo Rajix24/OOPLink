@@ -1,57 +1,58 @@
 @extends('layout.dashboard-layout')
 @section('dashboard-links')
 <link rel="stylesheet" href="{{ asset('storage/css/main.css') }}">
-<link rel="stylesheet" href="{{ asset('storage/css/auth.css') }}">
+<link rel="stylesheet" href="{{ asset('storage/css/account.css') }}">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+@endsection
 @section('title')
-    <title>dashboard</title>
+<title>account</title>
 @endsection
-@endsection
-
-@section('dashboard-btn')
-<div class="dropdown">
-    <button class="dropdown-btn"><img src="{{ asset('storage/user _1.png') }}" class="logout-imag" width="40px" height="auto" alt=""></button>
-    <div class="dropdown-content">
-        <a href="#">Account</a>
-        <form method="post" action="{{ route('logout') }}">
-            @csrf
-            <button class="btn btn-danger logout" type="submit">
-                logout
-            </button>
-        </form>
-    </div>
-</div>
-@endsection
-
-
 
 @section('dashboard-action')
-<div class="big">
-    <div class="article-box">
+<div class="box">
+    <div class="user-information">
+        <div class="user-box">
+            <div class="user-image">
+                @if ($user->photo != null)
+                <img src="{{ asset('storage/'. $user->photo) }}" alt="user-image">
+                @else
+                <img src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
+                @endif
+                <div class="user-info">
+                    <div class="name-email">
+                        <h5>{{ $user->name }}</h5>
+                        <p>{{ $user->email }}</p>
+                    </div>
+                    <form action="{{ route('account-edit') }}" method="get">
+                        @csrf
+                        <button class="btn btn-light" type="submit">Edit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="articles-account">
         @foreach ($articles as $article)
         <div class="article-card">
             <div class="article-img-wrap">
                 @if ($article->images != null)
-                @foreach ($article->images as $image)
-                <img src="{{ asset('storage/' . $image->image) }}" class="image-container" alt="article image" width="400px"
+                <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
                     height="450px">
-                @endforeach
                 @else
                 <h3>Images are not here</h3>
                 @endif
                 <span class="article-category">{{ $article->tag->tag }}</span>
             </div>
             <div class="article-body">
-                <!-- Tags -->
                 <div class="tag-list">
                     @foreach ($article->category as $category)
                     <span class="tag">{{ $category->category }}</span>
                     @endforeach
                 </div>
-                <!-- Title -->
                 <h2 class="article-title">
                     <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
                 </h2>
-                <!-- Author Meta -->
                 <div class="article-meta">
                     <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
                     <span class="meta-author">{{ $article->user->name }}</span>
@@ -62,6 +63,18 @@
                 </div>
                 <div class="article-footer">
                     <a href="{{ route("article.show", $article) }}" class="read-btn">Read article →</a>
+                    <div class="edit-delete">
+                        <form action="{{  route('article.edit', $article) }}" method="GET">
+                            @csrf
+                            @method('PUT')
+                            <button class="btn btn-warning w-100" type="submit">Edit</button>
+                        </form>
+                        <form action="{{  route('article.destroy', $article) }}" method="post">
+                            @csrf
+                            @method('delete')
+                            <button class="btn btn-danger w-100" type="submit">Delete</button>
+                        </form>
+                    </div>
                 </div>
 
             </div>
@@ -76,13 +89,13 @@
     <div class="topic">
         <h5>Recommended topics</h5>
         <div class="topic-link">
-            <a href="">HTML</a>
+            <a href="">Ai chnge the world</a>
         </div>
         <div class="topic-link">
-            <a href="">HTML</a>
+            <a href="">Are Ai can make you better programmer</a>
         </div>
         <div class="topic-link">
-            <a href="">HTML</a>
+            <a href="">php is death</a>
         </div>
     </div>
     <div class="categories">
@@ -100,13 +113,4 @@
 
     </div>
 </aside>
-
-
-<!-- <a href="{{ route('article.create') }}" class="btn btn-primary">cerate article</a> -->
-
-<!-- 
-<a href="{{ route("article.index") }}" class="btn btn-primary"> see articles</a>
-<a href="{{ route("categories.index") }}" class="btn btn-primary"> categories</a>
-<a href="{{ route("tag.index") }}" class="btn btn-primary"> see tags</a> -->
-
 @endsection

@@ -4,110 +4,94 @@
 <link rel="stylesheet" href="{{ asset('storage/css/show.css') }}">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+<meta name="csrf-token" content="{{ csrf_token() }}">
 
 @endsection
-@section('dashboard-btn')
-<div class="dropdown">
-    <button class="dropdown-btn"><img src="{{ asset('storage/user _1.png') }}" class="logout-imag" width="40px" height="auto" alt=""></button>
-    <div class="dropdown-content">
-        <a href="#">Account</a>
-        <form method="post" action="{{ route('logout') }}">
-            @csrf
-            <button class="btn btn-danger logout" type="submit">
-                logout
-            </button>
-        </form>
-    </div>
-</div>
+@section('title')
+<title>Article {{ $article->user->name }}</title>
 @endsection
 @section('dashboard-action')
 <div class="card-article">
     <div class="box-articel">
-            <div class="image-contianer">
-                @if ($article->images != null)
-                @foreach ($article->images as $image)
-                <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
-                    height="450px">
-                @endforeach
+        <div class="image-contianer">
+            @if ($article->images != null)
+            @foreach ($article->images as $image)
+            <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
+                height="450px">
+            @endforeach
+            @else
+            <h3>Images are not here</h3>
+            @endif
+        </div>
+        <div class="information">
+            @if ($article->user->photo != null)
+            <img class="show-image" src="{{ asset('storage/'. $article->user->photo) }}" alt="user-image">
+            @else
+            <img class="show-image" src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
+            @endif
+            <!-- <img class="show-image"> -->
+            <div class="name-show">
+                <p>Younes Rajix</p>
+                <p>public in </p>
+            </div>
+            <div class="follow">
+                @if (!Auth::user()->follow($article->user))
+                <form action="{{ route('follow', $article->user) }}" method="POST">
+                    @csrf
+                    <button type="submit" class=" follow-btn ">follow</button>
+                </form>
                 @else
-                <h3>Images are not here</h3>
+                <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
+                    @csrf
+                    <button type="submit" class="  unfollow-btn">unfollow</button>
+                </form>
                 @endif
             </div>
-            <div class="information">
-                <div class="show-image">
-
-                </div>
-                <div class="name-show">
-                    <p>Younes Rajix</p>
-                    <p>public in </p>
-                </div>
-                <div class="follow">
-                    @if (!Auth::user()->follow($article->user))
-                    <form action="{{ route('follow', $article->user) }}" method="POST">
-                        @csrf
-                        <button class="follow-btn" type="submit" class="btn btn-primary">follow</button>
-                    </form>
-                    @else
-                    <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">unfollow</button>
-                    </form>
-                    @endif
-                </div>
-            </div>
+        </div>
         <div class="card-body">
-            <h5 class="card-title">title: {{ $article->title }}</h5>
-            <p class="card-text"> intro :
+            <h5 class="card-title">{{ $article->title }}</h5>
+            <p class="card-text">
                 {{ $article->introduction }}
             </p>
-            <p> body :
+            <p>
                 {{ $article->body }}
             </p>
-            <p> consclusion :
+            <p>
                 {{ $article->conclusion }}
             </p>
+        </div>
+        <div class="category-tag">
             <span>categories</span>
-            @foreach ($article->category as $category)
-            <p class="btn btn-secondary">{{ $category->category }}</p>
-            @endforeach
+            <div class="category-box">
+                @foreach ($article->category as $category)
+                <p class="category ">{{ $category->category }}</p>
+                @endforeach
+            </div>
             <span>Tags</span>
-            <p class="btn btn-secondary">{{ $article->tag->tag }}</p>
-            <div class="d-flex justify-content-between">
-                <button class="btn btn-primary btn-sm">Like</button>
-                <button class="btn btn-outline-secondary btn-sm">Comment</button>
+            <div class="tags-box">
+                <p class="tags">{{ $article->tag->tag }}</p>
             </div>
         </div>
-        <div class="actions d-flex flex-column gap-2">
-            <form action="{{  route('article.edit', $article) }}" method="GET">
+        <div class="user-action">
+            <div class="likes">
+                @if (Auth::user()->hasLiked($article->id))
+                <i class="fa-solid fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
+                @else
+                <i class="fa-regular fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
+                @endif
+                <span class="like-counter" id="like-counter"></span>
+            </div>
+            <form id="form-action" class="comment-input">
                 @csrf
-                @method('PUT')
-                <button class="btn btn-warning w-100" type="submit">Edit</button>
-            </form>
-            <form action="{{  route('article.destroy', $article) }}" method="post">
-                @csrf
-                @method('delete')
-                <button class="btn btn-danger w-100" type="submit">Delete</button>
+                <input class="comment" id="content" type="text" placeholder="comments....">
+                <input type="hidden" id="article_id" value="{{ $article->id }}">
+                <button class="btn-comment" type="submit">comment</button>
             </form>
         </div>
-        <div class="likes">
-            @if (Auth::user()->hasLiked($article->id))
-            <i class="fa-solid fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
-            @else
-            <i class="fa-regular fa-heart" id="like_{{ $article->id }}" style="color:red; font-size:30px;"></i>
-            @endif
-            <span class="like-counter" id="like-counter"></span>
-        </div>
-        <div id="box"></div>
-        <form id="form-action" class="comment-input">
-            @csrf
-            <input class="comment" id="content" type="text" placeholder="comments....">
-            <input type="hidden" id="article_id" value="{{ $article->id }}">
-            <button class="btn" type="submit">comment</button>
-        </form>
+        <div id="box" class="comment-box"></div>
     </div>
 
-    <a href="{{ route('article.create') }}">cerate article</a>
+    <!-- <a href="{{ route('article.create') }}">cerate article</a> -->
 </div>
 
 <aside>
@@ -160,7 +144,7 @@
             content: document.getElementById("content").value,
             article_id: document.getElementById("article_id").value,
         }
-        console.log(formData);
+        // console.log(formData);
         axios.post("/comment", formData)
             .then(response => {
                 console.log(formData);
@@ -177,9 +161,9 @@
         let content = "";
         articles.forEach(article => {
             content += `
-            <div style="border:1px solid #ddd; padding:10px; margin:10px 0;">
-                <h4>comments: ${article.content}</h4>
-                <p><strong>from:</strong> ${article.user.name || ""}</p>
+            <div class="comment-show" style="  border-left: 3px solid var(--primary-color); padding-left: 1rem;">
+                <h5>From:  ${article.user.name || ""}</h5>
+                <p>comments: ${article.content}</p>
             </div>`;
         });
         document.getElementById('box').innerHTML = content;
