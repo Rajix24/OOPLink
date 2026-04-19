@@ -22,6 +22,7 @@
                 <a href="">About</a>
                 <a href="">Contact</a>
             </div>
+        </div>
             <div class="actions">
                 @yield("auth-btn")
             </div>

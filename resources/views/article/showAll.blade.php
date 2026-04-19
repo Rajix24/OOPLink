@@ -14,14 +14,20 @@
 <div class="card-article">
     <div class="box-articel">
         <div class="image-contianer">
-            @if ($article->images != null)
-            @foreach ($article->images as $image)
-            <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
-                height="450px">
-            @endforeach
-            @else
-            <h3>Images are not here</h3>
-            @endif
+            <div class="slider-wrapper">
+                <div class="slider" id="slider">
+                    @if ($article->images != null)
+                    @foreach ($article->images as $image)
+                    <img src="{{ asset('storage/' . $image->image) }}" class="image-show" alt="article image" width="400px"
+                        height="450px">
+                    @endforeach
+                    @else
+                    <h3>Images are not here</h3>
+                    @endif
+                </div>
+            </div>
+            <button class="prev" onclick="prevSlide()">❮</button>
+            <button class="next" onclick="nextSlide()">❯</button>
         </div>
         <div class="information">
             @if ($article->user->photo != null)
@@ -29,12 +35,18 @@
             @else
             <img class="show-image" src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
             @endif
-            <!-- <img class="show-image"> -->
             <div class="name-show">
                 <p>Younes Rajix</p>
-                <p>public in </p>
+                <p>public in {{ $article->created_at }} </p>
             </div>
             <div class="follow">
+                @if (auth()->user() == $article->user)
+                     <form action="{{  route('article.edit', $article) }}" method="GET">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-warning w-100" type="submit">Edit</button>
+                    </form>
+                @else
                 @if (!Auth::user()->follow($article->user))
                 <form action="{{ route('follow', $article->user) }}" method="POST">
                     @csrf
@@ -45,6 +57,7 @@
                     @csrf
                     <button type="submit" class="  unfollow-btn">unfollow</button>
                 </form>
+                @endif
                 @endif
             </div>
         </div>
@@ -90,41 +103,7 @@
         </div>
         <div id="box" class="comment-box"></div>
     </div>
-
-    <!-- <a href="{{ route('article.create') }}">cerate article</a> -->
 </div>
-
-<aside>
-    <div class="create-article">
-        <a class="create-article-side-bar" href="{{ route('article.create') }}">Create Article</a>
-    </div>
-    <div class="topic">
-        <h5>Recommended topics</h5>
-        <div class="topic-link">
-            <a href="">Ai chnge the world</a>
-        </div>
-        <div class="topic-link">
-            <a href="">Are Ai can make you better programmer</a>
-        </div>
-        <div class="topic-link">
-            <a href="">php is death</a>
-        </div>
-    </div>
-    <div class="categories">
-        <h5>Categories</h5>
-
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-    </div>
-    <div class="follow-people">
-        <div class="pepole-image"></div>
-        <h4>Younes Rajix</h4>
-
-
-    </div>
-</aside>
 @endsection
 @section('dashboard-script')
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -191,6 +170,7 @@
         });
     }
 </script>
+<script src="{{ asset('storage/js/articles.js') }}"></script>
 @endsection
 <style>
     .like-counter {

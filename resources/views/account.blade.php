@@ -24,93 +24,86 @@
                         <h5>{{ $user->name }}</h5>
                         <p>{{ $user->email }}</p>
                     </div>
+                    @if ($user->id == auth()->id())
                     <form action="{{ route('account-edit') }}" method="get">
                         @csrf
                         <button class="btn btn-light" type="submit">Edit</button>
                     </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="articles-account">
-        @foreach ($articles as $article)
-        <div class="article-card">
-            <div class="article-img-wrap">
-                @if ($article->images != null)
-                <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
-                    height="450px">
-                @else
-                <h3>Images are not here</h3>
-                @endif
-                <span class="article-category">{{ $article->tag->tag }}</span>
-            </div>
-            <div class="article-body">
-                <div class="tag-list">
-                    @foreach ($article->category as $category)
-                    <span class="tag">{{ $category->category }}</span>
-                    @endforeach
-                </div>
-                <h2 class="article-title">
-                    <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
-                </h2>
-                <div class="article-meta">
-                    <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
-                    <span class="meta-author">{{ $article->user->name }}</span>
-                    <div class="meta-dot"></div>
-                    <span class="meta-date"> {{ $article->created_at }}</span>
-                    <div class="meta-dot"></div>
-                    <span class="meta-date">10 min read</span>
-                </div>
-                <div class="article-footer">
-                    <a href="{{ route("article.show", $article) }}" class="read-btn">Read article →</a>
-                    <div class="edit-delete">
-                        <form action="{{  route('article.edit', $article) }}" method="GET">
+                    @else
+                    <div class="follow">
+                        @if (!Auth::user()->follow($article->user))
+                        <form action="{{ route('follow', $article->user) }}" method="POST">
                             @csrf
-                            @method('PUT')
-                            <button class="btn btn-warning w-100" type="submit">Edit</button>
+                            <button type="submit" class=" follow-btn ">follow</button>
                         </form>
-                        <form action="{{  route('article.destroy', $article) }}" method="post">
+                        @else
+                        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
                             @csrf
-                            @method('delete')
-                            <button class="btn btn-danger w-100" type="submit">Delete</button>
+                            <button type="submit" class="  unfollow-btn">unfollow</button>
                         </form>
+                        @endif
                     </div>
+                    @endif
                 </div>
-
             </div>
         </div>
-        @endforeach
     </div>
 </div>
-<aside>
-    <div class="create-article">
-        <a class="create-article-side-bar" href="{{ route('article.create') }}">Create Article</a>
+<div class="information-articles-user">
+    <div class="articles-information-count-followers">
+       <p><a href="">Articles: {{ count($articles) }}</a></p>
+       <p><a href="">Followers: {{ $user->follower()->count() }} </a></p>
+       <p><a href="">Following: {{ $user->following()->count() }}</a></p>
     </div>
-    <div class="topic">
-        <h5>Recommended topics</h5>
-        <div class="topic-link">
-            <a href="">Ai chnge the world</a>
+</div>
+<div class="articles-account">
+    @foreach ($articles as $article)
+    <div class="article-card">
+        <div class="article-img-wrap">
+            @if ($article->images != null)
+            <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
+                height="450px">
+            @else
+            <h3>Images are not here</h3>
+            @endif
+            <span class="article-category">{{ $article->tag->tag }}</span>
         </div>
-        <div class="topic-link">
-            <a href="">Are Ai can make you better programmer</a>
+        <div class="article-body">
+            <div class="tag-list">
+                @foreach ($article->category as $category)
+                <span class="tag">{{ $category->category }}</span>
+                @endforeach
+            </div>
+            <h2 class="article-title">
+                <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
+            </h2>
+            <div class="article-meta">
+                <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
+                <span class="meta-author">{{ $article->user->name }}</span>
+                <div class="meta-dot"></div>
+                <span class="meta-date"> {{ $article->created_at }}</span>
+                <div class="meta-dot"></div>
+                <span class="meta-date">10 min read</span>
+            </div>
+            <div class="article-footer">
+                <a href="{{ route("article.show", $article) }}" class="read-btn">Read article →</a>
+                <div class="edit-delete">
+                    <form action="{{  route('article.edit', $article) }}" method="GET">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-warning w-100" type="submit">Edit</button>
+                    </form>
+                    <form action="{{  route('article.destroy', $article) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger w-100" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+
         </div>
-        <div class="topic-link">
-            <a href="">php is death</a>
-        </div>
     </div>
-    <div class="categories">
-        <h5>Categories</h5>
-
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-        <div class="topic-link"><a href="">ai</a></div>
-    </div>
-    <div class="follow-people">
-        <div class="pepole-image"></div>
-        <h4>Younes Rajix</h4>
-
-
-    </div>
-</aside>
+    @endforeach
+</div>
+<!-- </div> -->
 @endsection

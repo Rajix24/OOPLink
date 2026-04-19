@@ -20,18 +20,16 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
 Route::get('/', function () {
-    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->take(2)->get();
+    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->take(4)->get();
     return view("welcome", compact('articles'));
 });
 
 
 
 Route::get('/account', function(){
-    $categories = Category::all();
-    $tags = Tag::all();
     $user = User::find(auth()->id());
     $articles = Article::with('tag', 'category', 'user', 'link', 'images')->where('user_id', Auth::id())->get();
-    return view('account', compact('categories','tags', 'articles', 'user'));
+    return view('account', compact('articles', 'user'));
 })->name('account')->middleware('auth');
 
 
@@ -39,12 +37,6 @@ Route::middleware('auth')->group(function (){
     Route::get('account-edit', [AccountController::class, "show"])->name('account-edit');
     Route::put('account-update/{user}', [AccountController::class, "update"])->name('update-account');
 });
-
-
-
-
-
-
 
 
 Route::get('login', function () {
