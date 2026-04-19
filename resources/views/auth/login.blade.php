@@ -28,7 +28,7 @@
             <div class="mb-3">
                 <label class="input-lable" for="Password">Password</label>
                 <!-- <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Password"required> -->
-                <x-bar_input name="password" placeholder="Enter password" id="floatingPassword"></x-bar_input>
+                <x-bar_input name="password" type="password" placeholder="Enter password" id="floatingPassword" required></x-bar_input>
             </div>
 
             <div class="form-check mb-3">

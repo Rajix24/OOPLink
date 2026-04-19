@@ -22,6 +22,9 @@
             <a href="{{ route("dashboard") }}">Home</a>
             <a href="">About</a>
             <a href="">Contact</a>
+            @if (auth()->user()->role_id == 1)
+            <a href="">Admin</a>
+            @endif
         </div>
         <div class="dropdown" id="dropdown-box">
             <button class="dropdown-btn">
