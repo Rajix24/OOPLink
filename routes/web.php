@@ -32,6 +32,10 @@ Route::get('/account', function(){
     return view('account', compact('articles', 'user'));
 })->name('account')->middleware('auth');
 
+Route::middleware('auth', 'admin')->group(function (){
+
+});
+
 
 Route::middleware('auth')->group(function (){
     Route::get('account-edit', [AccountController::class, "show"])->name('account-edit');
