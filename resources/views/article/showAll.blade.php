@@ -37,7 +37,7 @@
             @endif
             <div class="name-show">
                 <p>Younes Rajix</p>
-                <p>public in </p>
+                <p>public in {{ $article->created_at }} </p>
             </div>
             <div class="follow">
                 @if (!Auth::user()->follow($article->user))

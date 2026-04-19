@@ -24,10 +24,26 @@
                         <h5>{{ $user->name }}</h5>
                         <p>{{ $user->email }}</p>
                     </div>
+                    @if ($user->id == auth()->id())
                     <form action="{{ route('account-edit') }}" method="get">
                         @csrf
                         <button class="btn btn-light" type="submit">Edit</button>
                     </form>
+                    @else
+                    <div class="follow">
+                        @if (!Auth::user()->follow($article->user))
+                        <form action="{{ route('follow', $article->user) }}" method="POST">
+                            @csrf
+                            <button type="submit" class=" follow-btn ">follow</button>
+                        </form>
+                        @else
+                        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
+                            @csrf
+                            <button type="submit" class="  unfollow-btn">unfollow</button>
+                        </form>
+                        @endif
+                    </div>
+                    @endif
                 </div>
             </div>
         </div>

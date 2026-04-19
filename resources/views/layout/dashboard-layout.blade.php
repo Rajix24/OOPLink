@@ -62,18 +62,27 @@
                     <a href="">php is death</a>
                 </div>
             </div>
-            <div class="categories">
+            <div class="topic">
                 <h5>Categories</h5>
-
-                <div class="topic-link"><a href="">ai</a></div>
-                <div class="topic-link"><a href="">ai</a></div>
-                <div class="topic-link"><a href="">ai</a></div>
-                <div class="topic-link"><a href="">ai</a></div>
+                @foreach ($categories as $category)
+                <div class="topic-link"><a href="">{{ $category->category }}</a></div>
+                @endforeach
             </div>
-            <div class="follow-people">
-                <div class="pepole-image"></div>
-                <h4>Younes Rajix</h4>
 
+            <div class="topic">
+                @foreach ($users as $user)
+                <div class="topic-link d-flex gap-4 ">
+                    @if ($user->photo == null)
+                    <img src="{{ asset('storage/user _1.png') }}" alt="user-img" width="40px" height="40px">
+                    @else
+                    <img src="{{ asset('storage/'.$user->photo) }}" class="photo-aside" alt="user-img" width="60px" height="60px">
+                    @endif
+                    <div class="aside-user-information">
+                        <p class="aside-name">{{ $user->name }}</p>
+                        <p>{{ $user->email }}</p>
+                    </div>
+                </div>
+                @endforeach
 
             </div>
         </aside>
