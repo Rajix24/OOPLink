@@ -27,11 +27,9 @@ Route::get('/', function () {
 
 
 Route::get('/account', function(){
-    $categories = Category::all();
-    $tags = Tag::all();
     $user = User::find(auth()->id());
     $articles = Article::with('tag', 'category', 'user', 'link', 'images')->where('user_id', Auth::id())->get();
-    return view('account', compact('categories','tags', 'articles', 'user'));
+    return view('account', compact('articles', 'user'));
 })->name('account')->middleware('auth');
 
 

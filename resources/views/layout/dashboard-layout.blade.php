@@ -78,8 +78,21 @@
                     <img src="{{ asset('storage/'.$user->photo) }}" class="photo-aside" alt="user-img" width="60px" height="60px">
                     @endif
                     <div class="aside-user-information">
-                        <p class="aside-name">{{ $user->name }}</p>
+                        <p class="aside-name"><a href="#">{{ $user->name }}</a></p>
                         <p>{{ $user->email }}</p>
+                    </div> 
+                    <div class="follow">
+                        @if (!Auth::user()->follow($user))
+                        <form action="{{ route('follow', $user) }}" method="POST">
+                            @csrf
+                            <button type="submit" class=" follow-btn ">follow</button>
+                        </form>
+                        @else
+                        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$user) }}">
+                            @csrf
+                            <button type="submit" class="  unfollow-btn">unfollow</button>
+                        </form>
+                        @endif
                     </div>
                 </div>
                 @endforeach
@@ -89,6 +102,7 @@
     </main>
     @yield('dashboard-script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="{{ asset('storage/js/') }}"></script>
 </body>
 
 </html>

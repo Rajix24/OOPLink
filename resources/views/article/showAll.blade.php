@@ -40,6 +40,13 @@
                 <p>public in {{ $article->created_at }} </p>
             </div>
             <div class="follow">
+                @if (auth()->user() == $article->user)
+                     <form action="{{  route('article.edit', $article) }}" method="GET">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-warning w-100" type="submit">Edit</button>
+                    </form>
+                @else
                 @if (!Auth::user()->follow($article->user))
                 <form action="{{ route('follow', $article->user) }}" method="POST">
                     @csrf
@@ -50,6 +57,7 @@
                     @csrf
                     <button type="submit" class="  unfollow-btn">unfollow</button>
                 </form>
+                @endif
                 @endif
             </div>
         </div>

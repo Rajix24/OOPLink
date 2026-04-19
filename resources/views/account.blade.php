@@ -48,54 +48,62 @@
             </div>
         </div>
     </div>
-    <div class="articles-account">
-        @foreach ($articles as $article)
-        <div class="article-card">
-            <div class="article-img-wrap">
-                @if ($article->images != null)
-                <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
-                    height="450px">
-                @else
-                <h3>Images are not here</h3>
-                @endif
-                <span class="article-category">{{ $article->tag->tag }}</span>
-            </div>
-            <div class="article-body">
-                <div class="tag-list">
-                    @foreach ($article->category as $category)
-                    <span class="tag">{{ $category->category }}</span>
-                    @endforeach
-                </div>
-                <h2 class="article-title">
-                    <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
-                </h2>
-                <div class="article-meta">
-                    <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
-                    <span class="meta-author">{{ $article->user->name }}</span>
-                    <div class="meta-dot"></div>
-                    <span class="meta-date"> {{ $article->created_at }}</span>
-                    <div class="meta-dot"></div>
-                    <span class="meta-date">10 min read</span>
-                </div>
-                <div class="article-footer">
-                    <a href="{{ route("article.show", $article) }}" class="read-btn">Read article →</a>
-                    <div class="edit-delete">
-                        <form action="{{  route('article.edit', $article) }}" method="GET">
-                            @csrf
-                            @method('PUT')
-                            <button class="btn btn-warning w-100" type="submit">Edit</button>
-                        </form>
-                        <form action="{{  route('article.destroy', $article) }}" method="post">
-                            @csrf
-                            @method('delete')
-                            <button class="btn btn-danger w-100" type="submit">Delete</button>
-                        </form>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-        @endforeach
+</div>
+<div class="information-articles-user">
+    <div class="articles-information-count-followers">
+       <p><a href="">Articles: {{ count($articles) }}</a></p>
+       <p><a href="">Followers: {{ $user->follower()->count() }} </a></p>
+       <p><a href="">Following: {{ $user->following()->count() }}</a></p>
     </div>
 </div>
+<div class="articles-account">
+    @foreach ($articles as $article)
+    <div class="article-card">
+        <div class="article-img-wrap">
+            @if ($article->images != null)
+            <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
+                height="450px">
+            @else
+            <h3>Images are not here</h3>
+            @endif
+            <span class="article-category">{{ $article->tag->tag }}</span>
+        </div>
+        <div class="article-body">
+            <div class="tag-list">
+                @foreach ($article->category as $category)
+                <span class="tag">{{ $category->category }}</span>
+                @endforeach
+            </div>
+            <h2 class="article-title">
+                <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
+            </h2>
+            <div class="article-meta">
+                <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
+                <span class="meta-author">{{ $article->user->name }}</span>
+                <div class="meta-dot"></div>
+                <span class="meta-date"> {{ $article->created_at }}</span>
+                <div class="meta-dot"></div>
+                <span class="meta-date">10 min read</span>
+            </div>
+            <div class="article-footer">
+                <a href="{{ route("article.show", $article) }}" class="read-btn">Read article →</a>
+                <div class="edit-delete">
+                    <form action="{{  route('article.edit', $article) }}" method="GET">
+                        @csrf
+                        @method('PUT')
+                        <button class="btn btn-warning w-100" type="submit">Edit</button>
+                    </form>
+                    <form action="{{  route('article.destroy', $article) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button class="btn btn-danger w-100" type="submit">Delete</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    @endforeach
+</div>
+<!-- </div> -->
 @endsection
