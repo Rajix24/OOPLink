@@ -75,7 +75,7 @@
                 @endforeach
             </div>
             <h2 class="article-title">
-                <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
+                <p class="card-title">{{ $article->title }}</p>
             </h2>
             <div class="article-meta">
                 <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">

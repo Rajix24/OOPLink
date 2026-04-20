@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CommentController;
@@ -32,8 +33,8 @@ Route::get('/account', function(){
     return view('account', compact('articles', 'user'));
 })->name('account')->middleware('auth');
 
-Route::middleware('auth', 'admin')->group(function (){
-
+Route::middleware('auth', 'admin')->prefix('admin') ->group(function (){
+    Route::get('dashboard', [AdminController::class, "index"])->name('dashboard');
 });
 
 
