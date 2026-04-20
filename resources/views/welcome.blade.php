@@ -101,6 +101,13 @@
 
                 <div class="article-box w-100">
                     
+    @if ($articles->isEmpty())
+    <div class="no-articles">
+        <div class="empty-icon">📰</div>
+        <h2>No Articles Found</h2>
+        <p>There are no articles available right now. Please check back later.</p>
+    </div>
+    @endif
                     @foreach ($articles as $article)
                         <div class="article-card">
                             <div class="article-img-wrap">

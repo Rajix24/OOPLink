@@ -51,12 +51,19 @@
 </div>
 <div class="information-articles-user">
     <div class="articles-information-count-followers">
-       <p><a href="">Articles: {{ count($articles) }}</a></p>
-       <p><a href="">Followers: {{ $user->follower()->count() }} </a></p>
-       <p><a href="">Following: {{ $user->following()->count() }}</a></p>
+        <p><a href="">Articles: {{ count($articles) }}</a></p>
+        <p><a href="">Followers: {{ $user->follower()->count() }} </a></p>
+        <p><a href="">Following: {{ $user->following()->count() }}</a></p>
     </div>
 </div>
 <div class="articles-account">
+    @if ($articles->isEmpty())
+    <div class="no-articles">
+        <div class="empty-icon">📰</div>
+        <h2>No Articles Found</h2>
+        <p>There are no articles available right now. Please check back later.</p>
+    </div>
+    @endif
     @foreach ($articles as $article)
     <div class="article-card">
         <div class="article-img-wrap">
