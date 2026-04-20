@@ -7,6 +7,11 @@
 @endsection
 @endsection
 @section('dashboard-action')
+    @if(session('success'))
+    <div class="alert alert-success message">
+        <p>{{ session('success') }}</p>
+    </div>
+    @endif
 <div class="article-box">
 
     @if ($articles->isEmpty())
@@ -16,6 +21,7 @@
         <p>There are no articles available right now. Please check back later.</p>
     </div>
     @endif
+
     @foreach ($articles as $article)
     <div class="article-card">
         <div class="article-img-wrap">

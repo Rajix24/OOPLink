@@ -65,7 +65,7 @@ class ArticleController extends Controller
             }
         }
         $article->category()->sync($request->category_id);
-        return redirect()->route('article.index');
+        return redirect()->route('article.index')->with('success', 'Article created successfully!');
     }
 
     /**
