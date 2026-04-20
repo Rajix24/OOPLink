@@ -33,8 +33,8 @@ Route::get('/account', function(){
     return view('account', compact('articles', 'user'));
 })->name('account')->middleware('auth');
 
-Route::middleware('auth', 'admin')->group(function (){
-    Route::get('admin', [AdminController::class, "index"])->name('adminDashbord');
+Route::middleware('auth', 'admin')->prefix('admin') ->group(function (){
+    Route::get('dashboard', [AdminController::class, "index"])->name('dashboard');
 });
 
 

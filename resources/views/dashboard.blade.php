@@ -30,7 +30,7 @@
                 </div>
                 <!-- Title -->
                 <h2 class="article-title">
-                    <a href="{{ route("article.show", $article) }}" class="card-title">{{ $article->title }}</a>
+                    <p class="card-title">{{ $article->title }}</p>
                 </h2>
                 <!-- Author Meta -->
                 <div class="article-meta">
