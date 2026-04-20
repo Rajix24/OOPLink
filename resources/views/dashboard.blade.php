@@ -33,7 +33,7 @@
             <!-- Tags -->
             <div class="tag-list">
                 @foreach ($article->category as $category)
-                <span class="tag">{{ $category->category }}</span>
+                <span class="tag">{{ $category->category }}</span> 
                 @endforeach
             </div>
             <!-- Title -->
