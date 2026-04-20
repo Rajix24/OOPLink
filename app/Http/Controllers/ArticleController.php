@@ -65,7 +65,7 @@ class ArticleController extends Controller
             }
         }
         $article->category()->sync($request->category_id);
-        return redirect()->route('article.index');
+        return redirect()->route('article.index')->with('success', 'Article created successfully!');
     }
 
     /**
@@ -122,7 +122,7 @@ class ArticleController extends Controller
             }
         }
         $article->category()->sync($request->category_id);
-        return redirect()->route('article.index');
+        return redirect()->route('article.index')->with('success', 'Article created successfully!');
     }
 
     /**
@@ -139,7 +139,7 @@ class ArticleController extends Controller
         $article->link()->delete();
         $article->category()->detach();
         $article->delete();
-        return back();
+        return back()->with('delete', 'Article has been deleted!');
     }
 
     public function likeHandler(Request $request)
