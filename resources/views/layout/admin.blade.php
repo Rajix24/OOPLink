@@ -20,10 +20,10 @@
         </div>
         <div class="link-home" id="link-home">
             <a href="{{ route("dashboard") }}">Home</a>
-            <a href="">About</a>
+            <a href="{{ route("about") }}">About</a>
             <a href="">Contact</a>
             @if (auth()->user()->role_id == 1)
-            <a href="{{ route('dashboard') }}">Admin</a>
+            <a href="{{ route('home') }}">Admin</a>
             @endif
         </div>
         <div class="dropdown" id="dropdown-box">
@@ -34,7 +34,7 @@
             <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image"></button>
             @endif
             <div class="dropdown-content" id="dropdown">
-                <a href="{{ route('account') }}">Account</a>
+                <a href="{{ route('user-account', auth()->id()) }}">Account</a>
                 <form method="post" action="{{ route('logout') }}">
                     @csrf
                     <button id="log-out" class="logout-btn" type="submit">
@@ -68,10 +68,63 @@
             </div>
             <div class="topic">
                 <h5>Categories</h5>
-
+                @foreach ($categories as $category)
+                <div class="categories">
+                    <form class="admin-form" action="{{ route('categories.update', $category) }}" method="POST">
+                        @CSRF
+                        @method('PUT')
+                        <div class="">
+                            <input type="text" id="tagInput" name="category" class="input-admin"
+                                value="{{ $category->category }}"
+                                placeholder="Type a tag and press Enter">
+                        </div>
+                        <button type="submit">E</button>
+                    </form>
+                    <form action="{{ route('categories.destroy', $category) }}" method="post">
+                        @csrf
+                        @method("delete")
+                        <button type="submit" class="remove "> X </button>
+                    </form>
+                </div>
+                @endforeach
+                <form action="{{ route('categories.store') }}" method="POST">
+                    @CSRF
+                    <div class="mb-3">
+                        <input type="text" id="tagInput" name="category" aria-placeholder="create category" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-create w-100">Create Category</button>
+                </form>
             </div>
 
             <div class="topic">
+                <h5>Tags</h5>
+                @foreach ($tags as $tag)
+                <div class="categories">
+                    <form class="admin-form" action="{{ route('tag.update', $tag) }}" method="POST">
+                        @CSRF
+                        @method('PUT')
+                        <div class="">
+                            <input type="text" id="tagInput" name="tag" class="form-control"
+                                value="{{ $tag->tag }}"
+                                placeholder="Type a tag and press Enter">
+                        </div>
+                        <button type="submit" class="btn btn-primary">E</button>
+                    </form>
+                    <form action="{{ route('tag.destroy', $tag) }}" method="post">
+                        @csrf
+                        @method('delete')
+                        <button type="submit" class="remove">X</button>
+                    </form>
+                </div>
+                @endforeach
+                <form action="{{ route('tag.store') }}" method="POST">
+                    @CSRF
+                    <div class="mb-3">
+                        <input type="text" id="tagInput" name="tag" class="form-control"
+                            placeholder="Type a tag and press Enter">
+                    </div>
+                    <button type="submit" class="btn btn-create w-100">Create Tag</button>
+                </form>
             </div>
         </aside>
     </main>

@@ -1,7 +1,7 @@
 @extends('layout.dashboard-layout')
 @section('dashboard-links')
-<link rel="stylesheet" href="{{ asset('storage/css/main.css') }}">
 <link rel="stylesheet" href="{{ asset('storage/css/auth.css') }}">
+<link rel="stylesheet" href="{{ asset('storage/css/main.css') }}">
 @section('title')
 <title>dashboard</title>
 @endsection
@@ -36,20 +36,17 @@
             <span class="article-category">{{ $article->tag->tag }}</span>
         </div>
         <div class="article-body">
-            <!-- Tags -->
             <div class="tag-list">
                 @foreach ($article->category as $category)
                 <span class="tag">{{ $category->category }}</span> 
                 @endforeach
             </div>
-            <!-- Title -->
             <h2 class="article-title">
                 <p class="card-title">{{ $article->title }}</p>
             </h2>
-            <!-- Author Meta -->
             <div class="article-meta">
                 <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
-                <span class="meta-author">{{ $article->user->name }}</span>
+                <a href="{{ route('user-account', $article->user->id) }}" class="meta-author">{{ $article->user->name }}</a>
                 <div class="meta-dot"></div>
                 <span class="meta-date"> {{ $article->created_at }}</span>
                 <div class="meta-dot"></div>
@@ -67,11 +64,5 @@
 @section('dashboard-script')
 <script src="{{ asset('storage/js/layout.js') }}"></script>
 @endsection
-<!-- <a href="{{ route('article.create') }}" class="btn btn-primary">cerate article</a> -->
-
-<!-- 
-<a href="{{ route("article.index") }}" class="btn btn-primary"> see articles</a>
-<a href="{{ route("categories.index") }}" class="btn btn-primary"> categories</a>
-<a href="{{ route("tag.index") }}" class="btn btn-primary"> see tags</a> -->
-
+    
 @endsection

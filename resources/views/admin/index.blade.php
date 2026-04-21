@@ -47,7 +47,7 @@
                         <div class="admin-article-title">
                             <h4> <a href="{{ route('article.show', $article) }}">{{ $article->title }}</a></h4>
                             <p>publush at: {{ $article->created_at }}</p>
-                            <p class="admin-user-owner"> Owner: {{ $article->user->name }}</p>
+                            <p class="admin-user-owner"><a href="{{ route('home', $article->user->id) }}"></a> Owner: {{ $article->user->name }}</p>
                         </div>
                     </div>
                     <div class="Admin-article-information">
@@ -60,8 +60,8 @@
                     </div>
                 </div>
                 <div class="Admin-article-actions">
-                    <a href="edit" class="action-link">Edit</a>
-                    <form action="#" method="POST">
+                    <a href="{{ route('article.edit', $article) }}" class="action-link">Edit</a>
+                    <form action="{{ route('article.destroy', $article) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="action-link danger">Delete</button>
@@ -91,7 +91,7 @@
                             @endif
                         </div>
                         <div class="admin-article-title">
-                            <h4>{{ $user->name }}</h4>
+                            <h4><a href="{{ route('user-account', $user->id) }}">{{ $user->name }}</a></h4>
                             <p>{{ $user->email }}</p>
                         </div>
                     </div>
@@ -105,8 +105,7 @@
                         </div>
                 </div>
                 <div class="Admin-article-actions">
-                    <a href="edit" class="action-link">Edit</a>
-                    <form action="#" method="POST">
+                    <form action="{{ route('delete.user', $user) }}" method="POST">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="action-link danger">Delete</button>

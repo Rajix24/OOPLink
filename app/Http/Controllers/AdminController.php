@@ -11,10 +11,11 @@ use Illuminate\Http\Request;
 class AdminController extends Controller
 {
     function index()  {
-        $articles = Article::with('tag', 'category', 'user', 'link', 'images')->take(4)->get();
+        $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
         $likes = Like::count();
         $users = User::all();
         $comments = Comment::count();
+        // dd($articles);
         return view('admin.index', compact('articles', 'users', 'likes', 'comments'));
     }
 }

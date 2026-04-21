@@ -22,7 +22,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'rajix2100@gmail.com',
                 'name' => 'Younes Rajix',
                 'password' => 'rajix2100@gmail.com',
-                'role_id' => 2
+                'role_id' => 1
             ],
         );
     }

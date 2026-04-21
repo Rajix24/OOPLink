@@ -39,7 +39,7 @@ class TagController extends Controller
             "created_at" => NOW(),
             "updated_at" => NOW(),
         ]);
-        return redirect()->route('tag.index');
+        return back()->with("create", "tag has been created");
     }
 
     /**
@@ -56,9 +56,8 @@ class TagController extends Controller
     public function edit($id)
     {
         $tag = Tag::find($id)->first();
-        $condition = true;
 
-        return view('tag.edit', compact('tag','condition'));
+        return view('tag.edit', compact('tag'));
     }
 
     /**
@@ -71,7 +70,7 @@ class TagController extends Controller
             'tag' => $request->tag,
             'updated_at' => now(),
         ]);
-        return redirect()->route('tag.index');
+        return back()->with("update", "takg has been updated");
     }
 
     /**

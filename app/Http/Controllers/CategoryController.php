@@ -37,7 +37,7 @@ class CategoryController extends Controller
             "created_at" => NOW(),
             "updated_at" => NOW(),
         ]);
-        return redirect()->route('categories.index');
+        return back()->with("create", "user create category");
     }
 
     /**
@@ -65,7 +65,7 @@ class CategoryController extends Controller
             'category' => $request->category,
             'updated_at' => NOW()
         ]);
-        return redirect()->route('categories.index');
+        return back()->with("update", "you Update categories");
     }   
 
     /**

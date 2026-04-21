@@ -20,10 +20,10 @@
         </div>
         <div class="link-home" id="link-home">
             <a href="{{ route("dashboard") }}">Home</a>
-            <a href="">About</a>
+            <a href="{{ route('about') }}">About</a>
             <a href="">Contact</a>
             @if (auth()->user()->role_id == 1)
-            <a href="{{ route('dashboard') }}">Admin</a>
+            <a href="{{ route('home') }}">Admin</a>
             @endif
         </div>
         <div class="dropdown" id="dropdown-box">
@@ -34,7 +34,7 @@
             <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image"></button>
             @endif
             <div class="dropdown-content" id="dropdown">
-                <a href="{{ route('account') }}">Account</a>
+                <a href="{{ route('user-account', auth()->id()) }}">Account</a>
                 <form method="post" action="{{ route('logout') }}">
                     @csrf
                     <button id="log-out" class="logout-btn" type="submit">
@@ -71,6 +71,12 @@
                 <div class="topic-link"><a href="">{{ $category->category }}</a></div>
                 @endforeach
             </div>
+            <div class="topic">
+                <h5>Tags</h5>
+                @foreach ($tags as $tag)
+                <div class="topic-link"><a href="">{{ $tag->tag }}</a></div>
+                @endforeach
+            </div>
 
             <div class="topic">
                 @foreach ($users as $user)
@@ -83,7 +89,7 @@
                     <div class="aside-user-information">
                         <p class="aside-name"><a href="#">{{ $user->name }}</a></p>
                         <p>{{ $user->email }}</p>
-                    </div> 
+                    </div>
                     <div class="follow">
                         @if (!Auth::user()->follow($user))
                         <form action="{{ route('follow', $user) }}" method="POST">
