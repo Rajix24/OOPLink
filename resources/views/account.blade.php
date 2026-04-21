@@ -31,13 +31,13 @@
                     </form>
                     @else
                     <div class="follow">
-                        @if (!Auth::user()->follow($article->user))
-                        <form action="{{ route('follow', $article->user) }}" method="POST">
+                        @if (!Auth::user()->follow($user))
+                        <form action="{{ route('follow', $user) }}" method="POST">
                             @csrf
                             <button type="submit" class=" follow-btn ">follow</button>
                         </form>
                         @else
-                        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$article->user) }}">
+                        <form id="unfollow-form" method="POST" action="{{ route('unfollow',$user) }}">
                             @csrf
                             <button type="submit" class="  unfollow-btn">unfollow</button>
                         </form>

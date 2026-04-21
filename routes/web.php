@@ -8,14 +8,10 @@ use App\Http\Controllers\CommentController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\TagController;
+use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserRelationController;
 use App\Models\Article;
-use App\Models\Category;
-use App\Models\Tag;
-use App\Models\User;
-use App\Models\UserRelation;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
@@ -25,24 +21,19 @@ Route::get('/', function () {
     return view("welcome", compact('articles'));
 });
 
-
-
-Route::get('/account', function(){
-    $user = User::find(auth()->id());
-    $articles = Article::with('tag', 'category', 'user', 'link', 'images')->where('user_id', Auth::id())->get();
-    return view('account', compact('articles', 'user'));
-})->name('account')->middleware('auth');
+Route::get("user-account/{id}", [UserController::class, 'showAccount'])->name('user-account')->middleware("auth");
+Route::get('about', function (){
+    return view('about');
+})->name('about');
 
 Route::middleware('auth', 'admin')->prefix('admin') ->group(function (){
-    Route::get('dashboard', [AdminController::class, "index"])->name('dashboard');
+    Route::get('/home', [AdminController::class, "index"])->name('home');
 });
-
 
 Route::middleware('auth')->group(function (){
     Route::get('account-edit', [AccountController::class, "show"])->name('account-edit');
     Route::put('account-update/{user}', [AccountController::class, "update"])->name('update-account');
 });
-
 
 Route::get('login', function () {
     return view('auth.login');
@@ -65,6 +56,7 @@ Route::middleware("auth")->group(function () {
     Route::resource('tag', TagController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('article', ArticleController::class);
+    Route::delete('delete/{user}', [UserController::class, 'destroy'])->name('delete.user');
     Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
     Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
     Route::get("/countLike/{id}", function ($id) {

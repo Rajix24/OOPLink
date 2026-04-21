@@ -33,6 +33,6 @@ class AccountController extends Controller
         // dd($validation);
 
         $user->update($validation);
-        return redirect()->route('account');
+        return redirect()->route('user-account', auth()->id());
     }
 }
