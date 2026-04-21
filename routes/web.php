@@ -16,10 +16,10 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Route::get('/', function () {
+Route::get('welcome', function () {
     $articles = Article::with('tag', 'category', 'user', 'link', 'images')->take(4)->get();
     return view("welcome", compact('articles'));
-});
+})->name('/');
 
 Route::get("user-account/{id}", [UserController::class, 'showAccount'])->name('user-account')->middleware("auth");
 Route::get('about', function (){

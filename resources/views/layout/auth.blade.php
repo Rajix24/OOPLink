@@ -14,7 +14,7 @@
     <nav class="nav">
         <div class="app-logo d-flex">
             <img src="{{ asset('storage/logo.png') }}" alt="logo" height="70" width="auth">
-            <p class="oop">OOPLink</p>
+            <p class="oop"><a href="{{ route('/') }}">OOPLink</a></p>
         </div>
         <div class="links">
             <div class="link-home">
