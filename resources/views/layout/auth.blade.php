@@ -18,9 +18,9 @@
         </div>
         <div class="links">
             <div class="link-home">
-                <a href="">Home</a>
-                <a href="">About</a>
-                <a href="">Contact</a>
+                <a href="{{ route('dashboard') }}">Home</a>
+                <a href="{{ route('about') }}">About</a>
+                <a href="{{ route('contact') }}">Contact</a>
             </div>
         </div>
             <div class="actions">

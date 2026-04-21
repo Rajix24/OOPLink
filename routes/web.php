@@ -26,6 +26,10 @@ Route::get('about', function (){
     return view('about');
 })->name('about');
 
+Route::get('/content', function () {
+    return  view('contact');
+})->name('contact');
+
 Route::middleware('auth', 'admin')->prefix('admin') ->group(function (){
     Route::get('/home', [AdminController::class, "index"])->name('home');
 });

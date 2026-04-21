@@ -21,7 +21,7 @@
         <div class="link-home" id="link-home">
             <a href="{{ route("dashboard") }}">Home</a>
             <a href="{{ route('about') }}">About</a>
-            <a href="">Contact</a>
+            <a href="{{ route('contact') }}">Contact</a>
             @if (auth()->user()->role_id == 1)
             <a href="{{ route('home') }}">Admin</a>
             @endif
