@@ -23,13 +23,13 @@
     <nav class="nav">
         <div class="app-logo d-flex">
             <img src="{{ asset('storage/logo.png') }}" class="nav-img" alt="logo" height="70px" width="auth">
-            <a class="oop" href="{{ route('dashboard') }}">OOPLink</a>
+            <a class="oop" href="{{ route('/') }}">OOPLink</a>
         </div>
         <!-- <div class="links"> -->
             <div class="link-home">
                 <a href="{{ route("dashboard") }}">Home</a>
                 <a href="{{ route("about") }}">About</a>
-                <a href="">Contact</a>
+                <a href="{{ route('contact') }}">Contact</a>
             </div>
             <div class="actions">
                @if (Route::has('login'))

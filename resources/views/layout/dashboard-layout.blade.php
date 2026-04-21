@@ -16,12 +16,12 @@
     <nav class="nav" id="nav">
         <div class="app-logo d-flex">
             <img src="{{ asset('storage/logo.png') }}" alt="logo" height="70px" width="auth">
-            <a class="oop" href="{{ route('dashboard') }}">OOPLink</a>
+            <a class="oop" href="{{ route('/') }}">OOPLink</a>
         </div>
         <div class="link-home" id="link-home">
             <a href="{{ route("dashboard") }}">Home</a>
             <a href="{{ route('about') }}">About</a>
-            <a href="">Contact</a>
+            <a href="{{ route('contact') }}">Contact</a>
             @if (auth()->user()->role_id == 1)
             <a href="{{ route('home') }}">Admin</a>
             @endif
