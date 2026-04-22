@@ -9,11 +9,12 @@ use Illuminate\Notifications\Notifiable;
 use App\Models\Comment;
 use App\Models\Like;
 use Faker\Provider\UserAgent;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.

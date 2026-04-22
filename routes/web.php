@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
 
-Route::get('welcome', function () {
+Route::get('/', function () {
     $articles = Article::with('tag', 'category', 'user', 'link', 'images')->take(4)->get();
     return view("welcome", compact('articles'));
 })->name('/');
