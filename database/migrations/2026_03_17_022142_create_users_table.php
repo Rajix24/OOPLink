@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->integer('tele')->nullable();
             $table->string('photo')->nullable();
             $table->string('password');
+            $table->softDeletes();
             $table->foreignId('role_id')->constrained();
             $table->rememberToken();
             $table->timestamps();
@@ -48,5 +49,8 @@ return new class extends Migration {
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
+        Schema::table("users", function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

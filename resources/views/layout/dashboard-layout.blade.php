@@ -66,15 +66,16 @@
                 </div>
             </div>
             <div class="topic">
+                <h5><a class="layout-all" href="{{ route('article.index') }}">ALL</a></h5>
                 <h5>Categories</h5>
                 @foreach ($categories as $category)
-                <div class="topic-link"><a href="">{{ $category->category }}</a></div>
+                <div class="topic-link"><a href="{{ route('article.index', ['category_id' => $category->id]) }}">{{ $category->category }}</a></div>
                 @endforeach
             </div>
             <div class="topic">
                 <h5>Tags</h5>
                 @foreach ($tags as $tag)
-                <div class="topic-link"><a href="">{{ $tag->tag }}</a></div>
+                <div class="topic-link"><a href="{{ route('article.index', ['tag_id' => $tag->id]) }}">{{ $tag->tag }}</a></div>
                 @endforeach
             </div>
 

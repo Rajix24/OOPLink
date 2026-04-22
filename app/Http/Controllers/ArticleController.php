@@ -18,11 +18,19 @@ class ArticleController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        
-        $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
-        return view("dashboard", compact('articles'));
+        $query = Article::with('tag', 'category', 'user', 'link', 'images');
+        if ($request->filled('category_id')) {
+            $query->whereHas('category', function ($q) use ($request) {
+                $q->where('categories.id', $request->category_id);
+            });
+        }
+        if ($request->filled('tag_id')) {
+            $query->where('tag_id', $request->tag_id);
+        }
+        $articles = $query->paginate(10)->withQueryString();
+        return view('dashboard', compact('articles'));
     }
 
     /**
