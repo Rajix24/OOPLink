@@ -32,6 +32,7 @@ Route::get('/content', function () {
 
 Route::middleware('auth', 'admin')->prefix('admin') ->group(function (){
     Route::get('/home', [AdminController::class, "index"])->name('home');
+    Route::get('archive', [AdminController::class, "archive"])->name('archive');
 });
 
 Route::middleware('auth')->group(function (){
