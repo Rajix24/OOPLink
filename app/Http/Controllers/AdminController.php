@@ -10,12 +10,17 @@ use Illuminate\Http\Request;
 
 class AdminController extends Controller
 {
-    function index()  {
+    function index()
+    {
         $articles = Article::with('tag', 'category', 'user', 'link', 'images')->get();
         $likes = Like::count();
         $users = User::all();
         $comments = Comment::count();
-        // dd($articles);
         return view('admin.index', compact('articles', 'users', 'likes', 'comments'));
+    }
+    public function archive()
+    {
+        $users = User::onlyTrashed()->get();
+        return view("admin.archive", compact($users));
     }
 }
