@@ -45,7 +45,11 @@
                 <p class="card-title">{{ $article->title }}</p>
             </h2>
             <div class="article-meta">
+                @if ($article->user->photo != null)
                 <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
+                @else
+                <img src="{{ asset('storage/user _1.png') }}" alt="user photo" class="avatar">
+                @endif
                 <a href="{{ route('user-account', $article->user->id) }}" class="meta-author">{{ $article->user->name }}</a>
                 <div class="meta-dot"></div>
                 <span class="meta-date"> {{ $article->created_at }}</span>
@@ -61,8 +65,5 @@
     @endforeach
 </div>
 
-@section('dashboard-script')
-<script src="{{ asset('storage/js/layout.js') }}"></script>
-@endsection
     
 @endsection

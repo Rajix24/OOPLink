@@ -41,6 +41,10 @@
                     </div>
                 </div>
                 <div class="Admin-article-actions">
+                    <form action="{{ route('user.restore', $user) }}" method="POST">
+                        @csrf
+                        <button type="submit" class="restore">Restore</button>
+                    </form>
                     <form action="{{ route('delete.user', $user) }}" method="POST">
                         @csrf
                         @method('DELETE')

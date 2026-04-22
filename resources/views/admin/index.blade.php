@@ -108,7 +108,7 @@
                     <form action="{{ route('delete.user', $user) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="action-link danger">Delete</button>
+                        <button type="submit" class="action-link danger">Block</button>
                     </form>
                 </div>
             </div>

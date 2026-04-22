@@ -20,8 +20,8 @@
     @endsection
     @section('dashboard-action')
     <div class="create-box py-5 d-flex justify-content-center create-cont">
-        <div class="create-article-card p-4" style="max-width: 750px; width:100%;">
-            @if ($errors->any())
+        <div class="create-article-card p-4" >
+        @if ($errors->any())
             <div class="error">
                 @foreach ($errors->all() as $error)
                 <div class="error-handler">
@@ -35,27 +35,24 @@
                 @csrf
                 <div class="mb-3">
                     <label class="form-label ">Title</label>
-                    <input type="text" name="title" class="form-control custom-input" placeholder="Enter title">
+                    <input type="text" name="title" class="form-control custom-inputvh-50" placeholder="Enter title">
                 </div>
-                <!-- Introduction -->
                 <div class="mb-3">
                     <label class="form-label">Introduction</label>
-                    <textarea name="introduction" class="form-control custom-input" rows="3"></textarea>
+                    <textarea name="introduction" class="form-control custom-input text-input" rows="3"></textarea>
                 </div>
-                <!-- Body -->
                 <div class="mb-3">
                     <label class="form-label">Body</label>
-                    <textarea name="body" class="form-control custom-input" rows="5"></textarea>
+                    <textarea name="body" class="form-control custom-input text-input" rows="5"></textarea>
                 </div>
-                <!-- Conclusion -->
                 <div class="mb-3">
                     <label class="form-label">Conclusion</label>
-                    <textarea name="conclusion" class="form-control custom-input" rows="3"></textarea>
+                    <textarea name="conclusion" class="form-control custom-input text-input" rows="3"></textarea>
                 </div>
                 <!-- Image -->
                 <div class="mb-3">
                     <label class="form-label ">Upload Image</label>
-                    <input type="file" name="image[]" multiple class=" upload-files">
+                    <input type="file" name="image[]" multiple class="upload-files">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Links</label>
@@ -66,8 +63,8 @@
                 </div>
                 <!-- Categories -->
                 <div class="mb-3">
-                    <label class="form-label">Categories</label>
-                    <div class="tag-list">
+                    <label class="form-label mx-2">Categories</label>
+                    <div class="tag-list flex-column">
                         @foreach($categories as $category)
                         <div class="catego">
                             <input type="checkbox" class="check-box-input" name="category_id[]" value="{{ $category->id }}">

@@ -21,5 +21,8 @@ class UserController extends Controller
         $articles = Article::with('tag', 'category', 'user', 'link', 'images')->where('user_id', $user->id)->get();
         return view('account', compact('articles', 'user'));
     }
-
+    public function restore(User $user){
+             $user->restore();
+             return back();
+    } 
 }

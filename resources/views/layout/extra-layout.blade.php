@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="{{ asset('storage/css/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('storage/css/layout.css') }}">
     <link rel="stylesheet" href="{{ asset('storage/css/extra.css') }}">
-
     @yield('dashboard-links')
 </head>
 
@@ -45,12 +44,12 @@
             </div>
         </div>
     </nav>
-    <main class="main">
+    <main>
         @yield('dashboard-action')
     </main>
     @yield('dashboard-script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="{{ asset('storage/js/') }}"></script>
+    <script src="{{ asset('storage/js/layout.js') }}"></script>
 </body>
 
 </html>

@@ -20,7 +20,7 @@
     @endsection
     @section('dashboard-action')
     <div class="create-box py-5 d-flex justify-content-center create-cont">
-        <div class="create-article-card p-4" style="max-width: 750px; width:100%;">
+        <div class="create-article-card p-4" >
             @if ($errors->any())
             <div class="error">
                 @foreach ($errors->all() as $error)
@@ -41,22 +41,22 @@
 
                 <div class="mb-3">
                     <label class="form-label">Introduction</label>
-                    <textarea name="introduction" class="form-control" rows="3" placeholder="Short intro">{{ $article->introduction }}</textarea>
+                    <textarea name="introduction" class="form-control text-input" rows="3" placeholder="Short intro">{{ $article->introduction }}</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Body</label>
-                    <textarea name="body" class="form-control custom-input" rows="5" placeholder="Main content">value="{{ $article->body }}"</textarea>
+                    <textarea name="body" class="form-control custom-input text-input" rows="5" placeholder="Main content">value="{{ $article->body }}"</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Conclusion</label>
-                    <textarea name="conclusion" class="form-control custom-input" rows="3" placeholder="Final thoughts">value="{{ $article->conclusion }}"</textarea>
+                    <textarea name="conclusion" class="form-control custom-input text-input" rows="3" placeholder="Final thoughts">value="{{ $article->conclusion }}"</textarea>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label">Upload Image</label>
-                    <input type="file" name="image[]" multiple accept="image/*" class="form-control">
+                    <input type="file" name="image[]" multiple accept="image/*" class="upload-files">
                 </div>
 
                 <div class="mb-3">
@@ -65,7 +65,8 @@
                     <span>Demo:</span><input type="url" name="link[]" class="form-control custom-input" placeholder="https://example.com">
                 </div>
 
-                <div class="form-label d-flex flex-column">
+                <div class="form-label d-flex flex-column gap-2">
+                    <label for="categories">Categories</label>
                     @foreach($categories as $category)
                     <div class="catego">
                         <input type="checkbox" name="category_id[]" class="check-box-inputx" value="{{ $category->id }}">
