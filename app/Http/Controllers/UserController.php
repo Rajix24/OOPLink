@@ -9,6 +9,10 @@ use Illuminate\Http\Request;
 class UserController extends Controller
 {
     public function destroy(User $user){
+        if ($user->trashed()) {
+            $user->forceDelete();
+            return back();
+        }
         $user->delete();
         return back();
     }
