@@ -29,15 +29,16 @@
         <div class="dropdown" id="dropdown-box">
             <button class="dropdown-btn">
                 @if (auth()->user()->photo != NULL)
-                <img src="{{ asset('storage/'.auth()->user()->photo) }}" class="logout-imag" alt="User-image"></button>
-            @else
-            <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image"></button>
-            @endif
+                <img src="{{ asset('storage/'.auth()->user()->photo) }}" class="logout-imag" alt="User-image">
+                @else
+                <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image">
+                @endif
+            </button>
             <div class="dropdown-content" id="dropdown">
                 <a href="{{ route('user-account', auth()->id()) }}">Account</a>
-                <form method="post" action="{{ route('logout') }}">
+                <form id="log-out" method="post" action="{{ route('logout') }}">
                     @csrf
-                    <button id="log-out" class="logout-btn" type="submit">
+                    <button class="logout-btn" type="submit">
                         logout
                     </button>
                 </form>
