@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     @yield('title')
-    @yield('dashboard-links')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('storage/css/auth.css') }}">
     <link rel="stylesheet" href="{{ asset('storage/css/layout.css') }}">
+    @yield('dashboard-links')
 </head>
 
 
@@ -29,15 +29,16 @@
         <div class="dropdown" id="dropdown-box">
             <button class="dropdown-btn">
                 @if (auth()->user()->photo != NULL)
-                <img src="{{ asset('storage/'.auth()->user()->photo) }}" class="logout-imag" alt="User-image"></button>
-            @else
-            <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image"></button>
-            @endif
+                <img src="{{ asset('storage/'.auth()->user()->photo) }}" class="logout-imag" alt="User-image">
+                @else
+                <img src="{{ asset('storage/user _1.png')}} " class="logout-imag" alt="User-image">
+                @endif
+            </button>
             <div class="dropdown-content" id="dropdown">
                 <a href="{{ route('user-account', auth()->id()) }}">Account</a>
-                <form method="post" action="{{ route('logout') }}">
+                <form id="log-out" method="post" action="{{ route('logout') }}">
                     @csrf
-                    <button id="log-out" class="logout-btn" type="submit">
+                    <button class="logout-btn" type="submit">
                         logout
                     </button>
                 </form>
@@ -112,7 +113,7 @@
     </main>
     @yield('dashboard-script')
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <script src="{{ asset('storage/js/') }}"></script>
+    <script src="{{ asset('storage/js/layout.js') }}"></script>
 </body>
 
 </html>

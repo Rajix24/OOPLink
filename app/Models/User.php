@@ -8,7 +8,6 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Comment;
 use App\Models\Like;
-use Faker\Provider\UserAgent;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable

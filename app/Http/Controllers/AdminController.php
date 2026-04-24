@@ -21,6 +21,6 @@ class AdminController extends Controller
     public function archive()
     {
         $users = User::onlyTrashed()->get();
-        return view("admin.archive", compact($users));
+        return view("admin.archive", compact("users"));
     }
 }

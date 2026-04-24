@@ -75,7 +75,7 @@
     <div class="admin-Articles">
         <div class="admin-Articles-links">
             <h2>Users</h2>
-            <a href="">View all →</a>
+            <a href="{{ route('archive') }}">blocked →</a>
         </div>
         <div class="admin-articles-container">
             @foreach ($users as $user)
@@ -85,7 +85,7 @@
                     <div class="article-img-data">
                         <div class="">
                             @if ($user->photo == null)
-                            <img width="80px" height="80px" src="{{ asset('storage/logo.png') }}" alt="imag" class="admin-article-image">
+                            <img width="80px" height="80px" src="{{ asset('storage/user _1.png') }}" alt="imag" class="admin-article-image">
                             @else
                             <img width="80px" height="80px" src="{{ asset('storage/'. $user->photo) }}" alt="imag" class="admin-article-image">
                             @endif
@@ -108,7 +108,7 @@
                     <form action="{{ route('delete.user', $user) }}" method="POST">
                         @csrf
                         @method('DELETE')
-                        <button type="submit" class="action-link danger">Delete</button>
+                        <button type="submit" class="action-link danger">Block</button>
                     </form>
                 </div>
             </div>

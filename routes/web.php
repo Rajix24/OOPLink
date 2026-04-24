@@ -61,7 +61,9 @@ Route::middleware("auth")->group(function () {
     Route::resource('tag', TagController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('article', ArticleController::class);
-    Route::delete('delete/{user}', [UserController::class, 'destroy'])->name('delete.user');
+    Route::delete('delete/{user}', [UserController::class, 'destroy'])->withTrashed()->name('delete.user');
+    Route::post('/delete-user/{user}/restore', [UserController::class, 'restore'])->withTrashed()
+    ->name('user.restore');
     Route::get('/comment/{id}', [CommentController::class, "ShowComments"]);
     Route::post('/comment', [CommentController::class, "CreateComment"])->name('comment');
     Route::get("/countLike/{id}", function ($id) {
