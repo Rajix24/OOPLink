@@ -71,7 +71,9 @@
             <img src="{{ asset('storage/' . $article->images[0]->image) }}" class="image-container" alt="article image" width="400px"
                 height="450px">
             @else
-            <h3>Images are not here</h3>
+             <img src="{{ asset('storage/logo.png' ) }}" class="image-container" alt="article image" width="400px"
+                height="450px">
+            <!-- <h3>Images are not here</h3> -->
             @endif
             <span class="article-category">{{ $article->tag->tag }}</span>
         </div>
@@ -85,7 +87,11 @@
                 <p class="card-title">{{ $article->title }}</p>
             </h2>
             <div class="article-meta">
+                @if ($article->user->photo)
                 <img src="{{ asset('storage/'. $article->user->photo) }}" alt="user photo" class="avatar">
+                @else
+                <img src="{{ asset('storage/user _1.png') }}" alt="user photo" class="avatar">
+                @endif
                 <span class="meta-author">{{ $article->user->name }}</span>
                 <div class="meta-dot"></div>
                 <span class="meta-date"> {{ $article->created_at }}</span>

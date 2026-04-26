@@ -36,7 +36,7 @@
             <img class="show-image" src="{{ asset('storage/user _1.png') }}" alt="photo is not exist">
             @endif
             <div class="name-show">
-                <p>Younes Rajix</p>
+                <p><a href="{{ route('user-account', $article->user->id) }}">{{ $article->user->name }}</a></p>
                 <p>public in {{ $article->created_at }} </p>
             </div>
             <div class="follow">

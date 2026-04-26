@@ -29,7 +29,8 @@ class ArticleController extends Controller
         if ($request->filled('tag_id')) {
             $query->where('tag_id', $request->tag_id);
         }
-        $articles = $query->paginate(10)->withQueryString();
+        // $articles = $query->paginate(20)->withQueryString();
+        $articles = $query->get();
         return view('dashboard', compact('articles'));
     }
 
